@@ -35,7 +35,7 @@ public class UserService {
     public UserDto create(UserDto dto) {
         //validate the dto
         //disassemble the dto into an entity
-        //use the repostiroy to save the entity
+        //use the repository to save the entity
         //reassemble the entity back into a dto and return it
         userValidator.validateAndThrow(dto);
         User entity = userAssembler.disassemble(dto);
