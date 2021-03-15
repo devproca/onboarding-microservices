@@ -12,4 +12,9 @@ public class OnboardingMicroserviceApplication {
     public static void main(String[] args) {
         SpringApplication.run(OnboardingMicroserviceApplication.class, args);
     }
+
+    @Bean
+    public MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
+        return new MessageSourceAccessor(messageSource);
+    }
 }
