@@ -89,8 +89,8 @@ public class PhoneNumberService {
     public void verifyCode(VerificationDto dto, UUID userId, UUID phoneId) {
         PhoneNumber phone = phoneNumberRepository.findByUserIdAndPhoneId(userId, phoneId).get();
 
-        if (phone.getVerifyCode() == dto.getVerifyCode()) {
-            phone.setVerified(true);
+        if (phone.getVerifyCode().equals(dto.getVerifyCode())) {
+            phone.setNumberVerified(true);
         }
 
         phoneNumberRepository.save(phone);

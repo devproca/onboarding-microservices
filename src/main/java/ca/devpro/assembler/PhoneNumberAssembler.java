@@ -12,7 +12,7 @@ public class PhoneNumberAssembler {
                 .setPhoneId(entity.getPhoneId())
                 .setUserId(entity.getUserId())
                 .setPhoneNumber(entity.getPhoneNumber())
-                .setIsVerified(entity.isVerified());
+                .setIsVerified(entity.isNumberVerified());
     }
 
     public PhoneNumber disassemble(PhoneNumberDto dto) {

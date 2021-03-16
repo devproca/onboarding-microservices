@@ -34,7 +34,7 @@ public class PhoneNumber {
     private String phoneNumber;
 
     @Column(name = "is_verified")
-    boolean isVerified = false;
+    boolean isNumberVerified = false;
 
     @Column(name = "verify_code")
     private String verifyCode;
