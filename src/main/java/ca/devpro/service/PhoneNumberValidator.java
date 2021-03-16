@@ -16,6 +16,7 @@ public class PhoneNumberValidator {
 
     public static final String PHONE_NUMBER_REQUIRED = "PHONE_NUMBER_REQUIRED";
     public static final String PHONE_NUMBER_EXCEEDS_MAX_LENGTH = "PHONE_NUMBER_EXCEEDS_MAX_LENGTH";
+    public static final String PHONE_NUMBER_TOO_SHORT = "PHONE_NUMBER_EXCEEDS_TOO_SHORT";
     public static final String PHONE_NUMBER_INVALID = "PHONE_NUMBER_INVALID";
 
     private final PhoneNumberRepository phoneNumberRepository;
@@ -45,6 +46,8 @@ public class PhoneNumberValidator {
             errors.put("phoneNumber", PHONE_NUMBER_REQUIRED);
         } else if (dto.getPhoneNumber().length() > 10) {
             errors.put("phoneNumber", PHONE_NUMBER_EXCEEDS_MAX_LENGTH);
+        } else if (dto.getPhoneNumber().length() < 10) {
+            errors.put("phoneNumber", PHONE_NUMBER_TOO_SHORT);
         } else if (!NumberUtils.isCreatable(dto.getPhoneNumber())) {
             errors.put("phoneNumber", PHONE_NUMBER_INVALID);
         }
