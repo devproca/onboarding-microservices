@@ -1,6 +1,7 @@
 package ca.devpro.client;
 
 import ca.devpro.api.PhoneNumberDto;
+import ca.devpro.api.VerificationDto;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -53,6 +54,22 @@ public class PhoneNumberClient {
                 });
     }
 
+    public void sendVerificationCode(UUID userId, UUID phoneId) {
+        phoneCodeTarget(userId, phoneId)
+                .request()
+                .post(Entity.json(null), VerificationDto.class);
+    }
+
+    public PhoneNumberDto verifyCode(PhoneNumberDto phoneDto, VerificationDto verifyDto) {
+        phoneVerificationTarget(phoneDto.getUserId(), phoneDto.getPhoneId())
+                .request()
+                .post(Entity.json(verifyDto), VerificationDto.class);
+
+        return phoneTarget(phoneDto.getUserId(), phoneDto.getPhoneId())
+                .request()
+                .get(PhoneNumberDto.class);
+    }
+
     private WebTarget phoneTarget(@NonNull UUID userId) {
         return baseTarget()
                 .path("api")
@@ -65,6 +82,18 @@ public class PhoneNumberClient {
     private WebTarget phoneTarget(@NonNull UUID userId, @NonNull UUID phoneId) {
         return phoneTarget(userId)
                 .path(phoneId.toString());
+    }
+
+    private WebTarget phoneCodeTarget(@NonNull UUID userId, @NonNull UUID phoneId) {
+        return phoneTarget(userId)
+                .path(phoneId.toString())
+                .path("initiateVerification");
+    }
+
+    private WebTarget phoneVerificationTarget(@NonNull UUID userId, @NonNull UUID phoneId) {
+        return phoneTarget(userId)
+                .path(phoneId.toString())
+                .path("verify");
     }
 
     private WebTarget baseTarget() {

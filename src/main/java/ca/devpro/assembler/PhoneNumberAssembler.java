@@ -11,7 +11,8 @@ public class PhoneNumberAssembler {
         return new PhoneNumberDto()
                 .setPhoneId(entity.getPhoneId())
                 .setUserId(entity.getUserId())
-                .setPhoneNumber(entity.getPhoneNumber());
+                .setPhoneNumber(entity.getPhoneNumber())
+                .setIsVerified(entity.isVerified());
     }
 
     public PhoneNumber disassemble(PhoneNumberDto dto) {

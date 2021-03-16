@@ -1,6 +1,7 @@
 package ca.devpro.service;
 
 import ca.devpro.api.PhoneNumberDto;
+import ca.devpro.api.VerificationDto;
 import ca.devpro.assembler.PhoneNumberAssembler;
 import ca.devpro.entity.PhoneNumber;
 import ca.devpro.exception.NotFoundException;
@@ -23,6 +24,9 @@ public class PhoneNumberService {
 
     @Autowired
     private PhoneNumberValidator phoneNumberValidator;
+
+    @Autowired
+    private VerificationService verificationService;
 
     public List<PhoneNumberDto> findAll(UUID userId) {
         return phoneNumberRepository
@@ -70,5 +74,25 @@ public class PhoneNumberService {
         } else {
             throw new NotFoundException();
         }
+    }
+
+    public void sendVerifyCode(UUID userId, UUID phoneId) {
+        PhoneNumber phone = phoneNumberRepository.findByUserIdAndPhoneId(userId, phoneId).get();
+        String verifyCode = VerificationService.generateVerifyCode();
+
+        phone.setVerifyCode(verifyCode);
+        phoneNumberRepository.save(phone);
+
+        verificationService.sendVerifyCode(phone.getPhoneNumber(), verifyCode);
+    }
+
+    public void verifyCode(VerificationDto dto, UUID userId, UUID phoneId) {
+        PhoneNumber phone = phoneNumberRepository.findByUserIdAndPhoneId(userId, phoneId).get();
+
+        if (phone.getVerifyCode() == dto.getVerifyCode()) {
+            phone.setVerified(true);
+        }
+
+        phoneNumberRepository.save(phone);
     }
 }

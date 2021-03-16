@@ -30,6 +30,8 @@
             <column name="phone_number" type="varchar(10)">
                 <constraints nullable="false"/>
             </column>
+            <column name="is_verified" type="boolean"> </column>
+            <column name="verify_code" type="varchar(6)"> </column>
         </createTable>
     </changeSet>
 

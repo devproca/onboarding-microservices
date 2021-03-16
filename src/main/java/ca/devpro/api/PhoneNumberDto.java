@@ -11,4 +11,5 @@ public class PhoneNumberDto {
     private UUID phoneId;
     private UUID userId;
     private String phoneNumber;
+    private Boolean isVerified;
 }
