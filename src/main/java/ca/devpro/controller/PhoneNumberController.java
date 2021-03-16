@@ -18,7 +18,8 @@ public class PhoneNumberController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PhoneNumberDto create(@RequestBody PhoneNumberDto dto) {
+    public PhoneNumberDto create(@PathVariable("userId") UUID userId, @RequestBody PhoneNumberDto dto) {
+        dto.setUserId(userId);
         return phoneNumberService.create(dto);
     }
 

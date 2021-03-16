@@ -26,6 +26,8 @@ public class PhoneNumber {
     private UUID phoneId;
 
     @Column(name = "usr_id")
+    @Type(type = "uuid-char")
+    @Setter(AccessLevel.NONE)
     private UUID userId;
 
     @Column(name = "phone_number")

@@ -9,6 +9,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -21,14 +22,14 @@ public class PhoneNumberClient {
 
     public PhoneNumberClient() { client  = ClientBuilder.newClient(); }
 
-    public PhoneNumberDto create(UUID userId, PhoneNumberDto dto) {
-        return phoneTarget(userId)
+    public PhoneNumberDto create(PhoneNumberDto dto) {
+        return phoneTarget(dto.getUserId())
                 .request()
                 .post(Entity.json(dto), PhoneNumberDto.class);
     }
 
-    public PhoneNumberDto update(UUID userId, PhoneNumberDto dto) {
-        return phoneTarget(dto.getPhoneId())
+    public PhoneNumberDto update(PhoneNumberDto dto) {
+        return phoneTarget(dto.getUserId(), dto.getPhoneId())
                 .request()
                 .put(Entity.json(dto), PhoneNumberDto.class);
     }
@@ -52,7 +53,7 @@ public class PhoneNumberClient {
                 });
     }
 
-    public WebTarget phoneTarget(@NonNull UUID userId) {
+    private WebTarget phoneTarget(@NonNull UUID userId) {
         return baseTarget()
                 .path("api")
                 .path("v1")
@@ -61,12 +62,12 @@ public class PhoneNumberClient {
                 .path("phonenumbers");
     }
 
-    public WebTarget phoneTarget(@NonNull UUID userId, @NonNull UUID phoneId) {
+    private WebTarget phoneTarget(@NonNull UUID userId, @NonNull UUID phoneId) {
         return phoneTarget(userId)
                 .path(phoneId.toString());
     }
 
-    public WebTarget baseTarget() {
+    private WebTarget baseTarget() {
         return client.target(baseUri);
     }
 }
