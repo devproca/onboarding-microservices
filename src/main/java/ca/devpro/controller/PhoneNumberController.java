@@ -3,6 +3,7 @@ package ca.devpro.controller;
 import ca.devpro.api.PhoneNumberDto;
 import ca.devpro.api.VerificationDto;
 import ca.devpro.service.PhoneNumberService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,6 @@ public class PhoneNumberController {
         phoneNumberService.delete(userId, phoneId);
     }
 
-    // SMS Verification
     @PostMapping("/{phoneId}/initiateVerification")
     public void sendVerifyCode(@PathVariable("userId") UUID userId, @PathVariable("phoneId") UUID phoneId) {
         phoneNumberService.sendVerifyCode(userId, phoneId);

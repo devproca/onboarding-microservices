@@ -27,7 +27,5 @@ public class ApplicationExceptionHandler {
                 .body(translatedErrors);
     }
 
-    private String translate(String code) {
-        return messageSourceAccessor.getMessage(code, code, LocaleContextHolder.getLocale());
-    }
+    private String translate(String code) { return messageSourceAccessor.getMessage(code, code, LocaleContextHolder.getLocale()); }
 }

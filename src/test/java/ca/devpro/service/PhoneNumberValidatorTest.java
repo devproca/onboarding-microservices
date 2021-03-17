@@ -5,12 +5,12 @@ import ca.devpro.repository.PhoneNumberRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Map;
 import java.util.UUID;
 
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PhoneNumberValidatorTest {
 

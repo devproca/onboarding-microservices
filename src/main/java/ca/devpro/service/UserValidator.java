@@ -3,7 +3,9 @@ package ca.devpro.service;
 import ca.devpro.api.UserDto;
 import ca.devpro.exception.ValidationException;
 import ca.devpro.repository.UserRepository;
+
 import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -69,7 +71,5 @@ public class UserValidator {
         }
     }
 
-    private boolean isCreate(UserDto dto) {
-        return dto.getUserId() == null;
-    }
+    private boolean isCreate(UserDto dto) { return dto.getUserId() == null; }
 }

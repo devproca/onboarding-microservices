@@ -1,6 +1,7 @@
 package ca.devpro.client;
 
 import ca.devpro.api.UserDto;
+
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
+
 import java.util.List;
 import java.util.UUID;
 

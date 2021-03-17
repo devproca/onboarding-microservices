@@ -2,6 +2,7 @@ package ca.devpro.controller;
 
 import ca.devpro.api.UserDto;
 import ca.devpro.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +30,7 @@ public class UserController {
     }
 
     @GetMapping()
-    public List<UserDto> findAll() {
-        return userService.findAll();
-    }
+    public List<UserDto> findAll() { return userService.findAll(); }
 
     @GetMapping("/{userId}")
     public UserDto get(@PathVariable("userId") UUID userId) {

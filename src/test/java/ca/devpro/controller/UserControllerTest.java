@@ -2,10 +2,11 @@ package ca.devpro.controller;
 
 import ca.devpro.api.UserDto;
 import ca.devpro.client.UserClient;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
@@ -97,8 +98,8 @@ public class UserControllerTest {
         assertEquals(2, userClient.findAll().size());
     }
 
-
-    private UserDto newValidUserForCreate() { // Test Data
+    // Test Data
+    private UserDto newValidUserForCreate() {
         return new UserDto()
                 .setFirstName("test")
                 .setLastName("user")

@@ -17,6 +17,7 @@ public class UserAssembler {
 
     public User disassemble(UserDto dto) {
         User entity = User.newInstance(dto.getUsername());
+
         return disassembleInto(dto, entity);
     }
 

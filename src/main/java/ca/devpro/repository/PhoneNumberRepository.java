@@ -11,7 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface PhoneNumberRepository extends JpaRepository<PhoneNumber, UUID> {
-
     List<PhoneNumber> findAllByUserId(UUID userId);
 
     Optional<PhoneNumber> findByUserIdAndPhoneId(UUID userId, UUID phoneId);
