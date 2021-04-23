@@ -49,6 +49,14 @@ public class UserControllerTest {
         });
     }
 
+    @Test
+    public void testUpdate_shouldReturnDtoWithDifferentUserID_ShouldPass() {
+        UserDto dto = getValidUser();
+        UserDto updatedDto = userClient.update(dto);
+        assertNotEquals(dto, updatedDto);
+    }
+
+
     private UserDto getValidUser() {
         return new UserDto()
                 .setFirstName("test")

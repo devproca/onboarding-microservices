@@ -17,8 +17,12 @@ public class UserValidator {
     static final String LAST_NAME_REQUIRED = "LAST_NAME_REQUIRED";
     static final String USERNAME_REQUIRED = "USERNAME_REQUIRED";
     static final String USERNAME_TAKEN = "USERNAME_TAKEN";
+    static final String FIRST_NAME_LENGTH = "FIRST_NAME_LENGTH";
+    static final String LAST_NAME_LENGTH = "LAST_NAME_LENGTH";
+    static final String USERNAME_LENGTH = "USERNAME_LENGTH";
 
     private final UserRepository userRepository;
+
     @Autowired
     public UserValidator(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -34,29 +38,35 @@ public class UserValidator {
     public Map<String, String> validate(UserDto dto) {
         Map<String, String> errors = new LinkedHashMap<>();
 
-        validateFirstName(errors, dto);
-        validateLastName(errors, dto);
-        validateUsername(errors, dto);
+        validateFirstNameAndFirstNameLength(errors, dto);
+        validateLastNameAndLastNameLength(errors, dto);
+        validateUsernameAndUsernameLength(errors, dto);
         return errors;
     }
 
-    private void validateFirstName(Map<String, String> errors, UserDto dto) {
+    private void validateFirstNameAndFirstNameLength(Map<String, String> errors, UserDto dto) {
         if (StringUtils.isBlank(dto.getFirstName())) {
             errors.put("firstName", FIRST_NAME_REQUIRED);
+        } else if (dto.getFirstName().length() > 50) {
+            errors.put("firstName", FIRST_NAME_LENGTH);
         }
     }
 
-    private void validateLastName(Map<String, String> errors, UserDto dto) {
+    private void validateLastNameAndLastNameLength(Map<String, String> errors, UserDto dto) {
         if (StringUtils.isBlank(dto.getLastName())) {
             errors.put("lastName", LAST_NAME_REQUIRED);
+        } else if (dto.getLastName().length() > 50) {
+            errors.put("lastName", LAST_NAME_LENGTH);
         }
     }
 
-    private void validateUsername(Map<String, String> errors, UserDto dto) {
+    private void validateUsernameAndUsernameLength(Map<String, String> errors, UserDto dto) {
         if (StringUtils.isBlank(dto.getUsername())) {
             errors.put("username", USERNAME_REQUIRED);
         } else if(isCreate(dto) && userRepository.existsByUsernameIgnoreCase(dto.getUsername())) {
             errors.put("username", USERNAME_TAKEN);
+        } else if (dto.getLastName().length() > 30) {
+            errors.put("Username", USERNAME_LENGTH);
         }
     }
 

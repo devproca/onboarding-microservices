@@ -19,4 +19,30 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="create-phone-table" author="Cross">
+        <createTable tableName="phone">
+            <column name="phone_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="usr_id" type="varchar(36)">
+            </column>
+            <column name="phone_num" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_type" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  author="Cross"  id="addForeignKeyConstraint">
+        <addForeignKeyConstraint  baseColumnNames="usr_id"
+                                  baseTableName="phone"
+                                  constraintName="phone_fk1"
+                                  referencedColumnNames="usr_id"
+                                  referencedTableName="usr"
+                                  />
+    </changeSet>
+
 </databaseChangeLog>

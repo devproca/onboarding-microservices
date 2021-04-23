@@ -1,18 +1,27 @@
 package ca.devpro.assembler;
 
 import ca.devpro.api.UserDto;
+import ca.devpro.api.PhoneDto;
 import ca.devpro.entity.User;
+import ca.devpro.entity.Phone;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class UserAssembler {
+
+    @Autowired
+    private PhoneAssembler phoneAssembler;
 
     public UserDto assemble(User entity) {
         return new UserDto()
                 .setUserId(entity.getUserId())
                 .setLastName(entity.getLastName())
                 .setFirstName(entity.getFirstName())
-                .setUsername(entity.getUsername());
+                .setUsername(entity.getUsername())
+                .setPhones(entity.getPhones().stream().map(phoneAssembler::assemble).collect(Collectors.toList()));
     }
 
     //create
@@ -23,7 +32,12 @@ public class UserAssembler {
 
     //update
     public User disassembleInto(UserDto dto, User entity) {
+
+        for (int i = 0; i <dto.getPhones().size(); i++)
+                dto.getPhones().get(i).setUserId(entity.getUserId());
+
         return entity.setFirstName(dto.getFirstName())
-                .setLastName(dto.getLastName());
+                .setLastName(dto.getLastName())
+                .setPhones(dto.getPhones().stream().map(phoneAssembler::disassemble).collect(Collectors.toList()));
     }
 }
