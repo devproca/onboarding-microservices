@@ -2,7 +2,11 @@ package ca.devpro.assembler;
 
 import ca.devpro.api.PhoneDto;
 import ca.devpro.entity.Phone;
+import ca.devpro.entity.User;
+import ca.devpro.util.CollectionComparator;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class PhoneAssembler {
@@ -25,5 +29,20 @@ public class PhoneAssembler {
     public Phone disassembleInto(PhoneDto dto, Phone entity){
         return entity.setPhoneNumber(dto.getPhoneNumber())
                 .setPhoneType(dto.getPhoneType());
+    }
+
+    public List<Phone> disassembleIntoParentEntity(List<PhoneDto> dtos, User parentEntity) {
+        CollectionComparator.of(parentEntity.getPhones(), dtos)
+                .compareWith((entity, dto) -> entity.getPhoneId().equals(dto.getPhoneId()))
+                .ifAdded(dto -> {
+                    parentEntity.getPhones().add(disassemble(dto));
+                })
+                .ifRemoved(entity -> {
+                    parentEntity.getPhones().remove(entity);
+                })
+                .ifExists((entity, dto) -> {
+                    disassembleInto(dto, entity);
+                });
+        return parentEntity.getPhones();
     }
 }

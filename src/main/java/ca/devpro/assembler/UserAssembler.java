@@ -32,12 +32,8 @@ public class UserAssembler {
 
     //update
     public User disassembleInto(UserDto dto, User entity) {
-
-        for (int i = 0; i <dto.getPhones().size(); i++)
-                dto.getPhones().get(i).setUserId(entity.getUserId());
-
         return entity.setFirstName(dto.getFirstName())
                 .setLastName(dto.getLastName())
-                .setPhones(dto.getPhones().stream().map(phoneAssembler::disassemble).collect(Collectors.toList()));
+                .setPhones(phoneAssembler.disassembleIntoParentEntity(dto.getPhones(), entity));
     }
 }
