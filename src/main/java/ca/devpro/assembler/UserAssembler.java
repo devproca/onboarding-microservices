@@ -1,12 +1,10 @@
 package ca.devpro.assembler;
 
 import ca.devpro.api.UserDto;
-import ca.devpro.api.PhoneDto;
 import ca.devpro.entity.User;
-import ca.devpro.entity.Phone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 @Component

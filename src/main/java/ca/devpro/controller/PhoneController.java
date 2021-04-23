@@ -43,4 +43,10 @@ public class PhoneController {
     public void delete(@PathVariable("phoneId") UUID phoneId) {
         phoneService.delete(phoneId);
     }
+
+
+    //add endpoint to initiate a phone number verification
+
+    //add endpoint to validate taht phone number verification
+
 }
