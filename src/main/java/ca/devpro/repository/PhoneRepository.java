@@ -9,4 +9,5 @@ import java.util.UUID;
 @Repository
 public interface PhoneRepository extends JpaRepository<Phone, UUID> {
 
+    Phone findByUserIdAndPhoneId(UUID userID, UUID phoneId);
 }

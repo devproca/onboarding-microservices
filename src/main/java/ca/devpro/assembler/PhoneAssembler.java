@@ -16,7 +16,8 @@ public class PhoneAssembler {
                 .setPhoneId(entity.getPhoneId())
                 .setUserId(entity.getUserId())
                 .setPhoneNumber(entity.getPhoneNumber())
-                .setPhoneType(entity.getPhoneType());
+                .setPhoneType(entity.getPhoneType())
+                .setVarificationStatus(entity.isVarificationStatus());
     }
 
     // create

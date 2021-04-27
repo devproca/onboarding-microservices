@@ -1,6 +1,7 @@
 package ca.devpro.controller;
 
 import ca.devpro.api.PhoneDto;
+import ca.devpro.api.VerificationDto;
 import ca.devpro.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,10 +44,17 @@ public class PhoneController {
     public void delete(@PathVariable("phoneId") UUID phoneId) {
         phoneService.delete(phoneId);
     }
-
-
+    
     //add endpoint to initiate a phone number verification
-
-    //add endpoint to validate taht phone number verification
+    @PostMapping("/{phoneId}/initiate")
+    public void sendCode(@PathVariable("userId") UUID userId, @PathVariable("phoneId") UUID phoneId){
+        phoneService.sendVerificationCode(userId, phoneId);
+    }
+    
+    //add endpoint to validate that phone number verification
+    @PostMapping("/{phoneId}/verify")
+    public void varifyCode(@RequestBody VerificationDto varificationDto, @PathVariable("userId") UUID userId, @PathVariable("phoneId") UUID phoneId){
+        phoneService.verifyVerificationCode(varificationDto, userId, phoneId);
+    }
 
 }

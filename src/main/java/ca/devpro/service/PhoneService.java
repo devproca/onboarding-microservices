@@ -1,10 +1,13 @@
 package ca.devpro.service;
 
 import ca.devpro.api.PhoneDto;
+import ca.devpro.api.VerificationDto;
 import ca.devpro.assembler.PhoneAssembler;
 import ca.devpro.entity.Phone;
 import ca.devpro.exception.NotFoundException;
 import ca.devpro.repository.PhoneRepository;
+import com.twilio.type.PhoneNumber;
+import liquibase.pro.packaged.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,9 @@ public class PhoneService {
 
     @Autowired
     private PhoneRepository phoneRepository;
+
+    @Autowired
+    private SmsVerificationService smsVarificationService;
 
     public PhoneDto create(PhoneDto dto) {
         phoneValidator.validateAndThrow(dto);
@@ -59,5 +65,24 @@ public class PhoneService {
                 .ifPresentOrElse(phoneRepository::delete, () -> {
                     throw new NotFoundException();
                 });
+    }
+
+    public void sendVerificationCode(UUID userId, UUID phoneId){
+        String verificationCode = SmsVerificationService.codeGenerator();
+        Phone phone = phoneRepository.findByUserIdAndPhoneId(userId, phoneId);
+
+        phone.setVarificationCode(verificationCode);
+        phoneRepository.save(phone);
+        smsVarificationService.sendSmsVerificationCode(verificationCode);
+    }
+
+    public void verifyVerificationCode(VerificationDto verifyDto, UUID userId, UUID phoneId){
+        Phone phone = phoneRepository.findByUserIdAndPhoneId(userId, phoneId);
+        System.err.println(verifyDto);
+        System.err.println(phone);
+        if(verifyDto.getVerificationCode().equals(phone.getVarificationCode()))
+            phone.setVarificationStatus(true);
+
+        phoneRepository.save(phone);
     }
 }

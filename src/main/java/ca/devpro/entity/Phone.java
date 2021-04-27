@@ -3,6 +3,7 @@ package ca.devpro.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Table(name = "phone")
 @Getter
 @Setter
+@ToString
 @Accessors(chain = true)
 public class Phone {
 
@@ -33,6 +35,12 @@ public class Phone {
 
     @Column(name = "phone_type")
     private String phoneType;
+
+    @Column(name = "varify_status")
+    private boolean varificationStatus = false;
+
+    @Column(name = "varify_code")
+    private String varificationCode;
 
     public static Phone newPhone(UUID userId){
         Phone entity = new Phone();
