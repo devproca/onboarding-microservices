@@ -36,6 +36,7 @@ public class PhoneAssembler {
         CollectionComparator.of(parentEntity.getPhones(), dtos)
                 .compareWith((entity, dto) -> entity.getPhoneId().equals(dto.getPhoneId()))
                 .ifAdded(dto -> {
+                    dto.setUserId(parentEntity.getUserId());
                     parentEntity.getPhones().add(disassemble(dto));
                 })
                 .ifRemoved(entity -> {
