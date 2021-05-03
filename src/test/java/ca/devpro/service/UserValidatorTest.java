@@ -4,6 +4,7 @@ import ca.devpro.api.UserDto;
 import static org.junit.jupiter.api.Assertions.*;
 
 import ca.devpro.assembler.UserAssembler;
+import ca.devpro.client.UserClient;
 import ca.devpro.controller.UserController;
 import ca.devpro.entity.User;
 import ca.devpro.repository.UserRepository;

@@ -1,5 +1,6 @@
 package ca.devpro.api;
 
+import ca.devpro.entity.Phone;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -12,4 +13,5 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String username;
+    private Phone[] phones;
 }
