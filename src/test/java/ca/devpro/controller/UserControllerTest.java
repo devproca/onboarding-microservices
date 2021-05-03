@@ -50,6 +50,42 @@ public class UserControllerTest {
         assertEquals(createdDto, getDto);
     }
 
+    @Test
+    public void testCreateAndGet_whenInValid_shouldReturnBadRequest() {
+        UserDto dto = getValidUser().setFirstName(" ");
+        assertThrows(BadRequestException.class, () -> userClient.create(dto));
+        assertThrows(BadRequestException.class, () -> userClient.get(createdDto.getUserId()));
+
+    }
+    @Test
+    public void testUpdate_whenValid_shouldPopulateUserId() {
+        UserDto dto = getValidUser();
+        UserDto updatedDto = userClient.update(dto);
+        assertNotNull(updatedDto.getUserId());
+    }
+
+    @Test
+    public void testUpdate_whenInvalid_shouldReturnBadRequest() {
+        UserDto dto = getValidUser().setFirstName(" ");
+
+        assertThrows(BadRequestException.class, () -> userClient.update(dto));
+    }
+
+    @Test
+    public void testDelete_whenValid_shouldPopulateUserId() {
+
+        UserDto deleteDto = userClient.get(deletedDto.getUserId());
+        assertNotNull(deleteDto);
+
+    }
+
+    @Test
+    public void testDelete_whenInvalid_shouldReturnBadRequest() {
+
+        assertThrows(BadRequestException.class, () -> userClient.delete(deletedDto.getUserId()));
+
+    }
+
     private UserDto getValidUser() {
         return new UserDto()
                 .setUsername("doddt")
