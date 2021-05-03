@@ -3,6 +3,9 @@ package ca.devpro.service;
 import ca.devpro.api.UserDto;
 import static org.junit.jupiter.api.Assertions.*;
 
+import ca.devpro.assembler.UserAssembler;
+import ca.devpro.controller.UserController;
+import ca.devpro.entity.User;
 import ca.devpro.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +31,32 @@ public class UserValidatorTest {
         Map<String, String> errors = userValidator.validate(dto);
         assertEquals(1, errors.size());
         assertEquals(UserValidator.FIRST_NAME_REQUIRED, errors.get("firstName"));
+    }
+
+    @Test
+    public void testValidate_whenLastNameBlank_shouldReturnError() {
+        UserDto dto = getValidUser().setLastName(" ");
+        Map<String, String> errors = userValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(UserValidator.LAST_NAME_REQUIRED, errors.get("lastName"));
+    }
+
+    @Test
+    public void testValidate_whenUsernameBlank_shouldReturnError() {
+        UserDto dto = getValidUser().setUsername(" ");
+        Map<String, String> errors = userValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(UserValidator.USERNAME_REQUIRED, errors.get("username"));
+    }
+
+    @Test
+    public void testValidate_whenUsernameTaken_shouldReturnError() {
+        UserController userController = new UserController();
+        UserDto dto = getValidUser();
+        dto = userController.create(dto);
+        Map<String, String> errors = userValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(UserValidator.USERNAME_TAKEN, errors.get("username"));
     }
 
     private UserDto getValidUser() {
