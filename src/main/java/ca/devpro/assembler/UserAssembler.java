@@ -13,6 +13,7 @@ public class UserAssembler {
                 .setFirstName(entity.getFirstName())
                 .setLastName(entity.getLastName())
                 .setUsername(entity.getUsername());
+
     }
 
     public User disassemble(UserDto dto) {

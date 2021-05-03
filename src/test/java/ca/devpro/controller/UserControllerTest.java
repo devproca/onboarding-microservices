@@ -67,7 +67,6 @@ public class UserControllerTest {
     @Test
     public void testUpdate_whenInvalid_shouldReturnBadRequest() {
         UserDto dto = getValidUser().setFirstName(" ");
-
         assertThrows(BadRequestException.class, () -> userClient.update(dto));
     }
 
