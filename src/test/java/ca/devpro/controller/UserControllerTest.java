@@ -65,8 +65,7 @@ public class UserControllerTest {
         UserDto dto = getValidUser();
         UserDto createdDto = userClient.create(dto);
         createdDto.setFirstName(" ");
-        createdDto = userClient.update(createdDto);
-        assertThrows(BadRequestException.class, () -> userClient.update(dto));
+        assertThrows(BadRequestException.class, () -> userClient.update(createdDto));
     }
 
     @Test
