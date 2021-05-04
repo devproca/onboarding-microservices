@@ -10,5 +10,5 @@ import java.util.UUID;
 public class PhoneDto {
 
     private UUID phoneId;
-    private String phonenumber;
+    private String phoneNumber;
 }
