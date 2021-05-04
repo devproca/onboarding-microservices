@@ -7,13 +7,8 @@ import java.util.UUID;
 
 @Data
 @Accessors(chain = true)
-public class UserDto {
+public class PhoneDto {
 
-    private UUID userId;
-    private String firstName;
-    private String lastName;
-    private String username;
-
-
-
+    private UUID phoneId;
+    private String phonenumber;
 }

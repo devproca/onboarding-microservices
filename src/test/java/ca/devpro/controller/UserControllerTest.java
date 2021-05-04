@@ -54,6 +54,7 @@ public class UserControllerTest {
     public void testCreateAndGet_whenInValid_shouldReturnBadRequest() {
         UserDto dto = getValidUser().setFirstName(" ");
         assertThrows(BadRequestException.class, () -> userClient.create(dto));
+        UserDto createdDto = userClient.create(dto);
         assertThrows(BadRequestException.class, () -> userClient.get(createdDto.getUserId()));
 
     }
@@ -72,7 +73,7 @@ public class UserControllerTest {
 
     @Test
     public void testDelete_whenValid_shouldPopulateUserId() {
-
+        UserDto deletedDto = userClient.delete(dto);
         UserDto deleteDto = userClient.get(deletedDto.getUserId());
         assertNotNull(deleteDto);
 
@@ -80,7 +81,7 @@ public class UserControllerTest {
 
     @Test
     public void testDelete_whenInvalid_shouldReturnBadRequest() {
-
+        UserDto deletedDto = userClient.create(dto);
         assertThrows(BadRequestException.class, () -> userClient.delete(deletedDto.getUserId()));
 
     }
