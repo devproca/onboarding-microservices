@@ -22,7 +22,13 @@ public class UserValidatorTest {
     @BeforeEach
     public void init() {
         userRepository = mock(UserRepository.class);
-        when(userRepository.existsByUsernameIgnoreCase(anyString())).thenReturn(false);
+        when(userRepository.existsByUsernameIgnoreCase(anyString())).thenAnswer(invocation -> {
+            String suppliedUsername = invocation.getArgument(0);
+            if ("taken".equals(suppliedUsername)) {
+                return true;
+            }
+            return false;
+        });
         userValidator = new UserValidator(userRepository);
     }
 
@@ -52,9 +58,7 @@ public class UserValidatorTest {
 
     @Test
     public void testValidate_whenUsernameTaken_shouldReturnError() {
-        UserController userController = new UserController();
-        UserDto dto = getValidUser();
-        dto = userController.create(dto);
+        UserDto dto = getValidUser().setUsername("taken");
         Map<String, String> errors = userValidator.validate(dto);
         assertEquals(1, errors.size());
         assertEquals(UserValidator.USERNAME_TAKEN, errors.get("username"));
