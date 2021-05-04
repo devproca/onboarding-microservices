@@ -2,9 +2,6 @@ package ca.devpro.controller;
 
 import ca.devpro.api.UserDto;
 import ca.devpro.client.UserClient;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +9,8 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
 
 import javax.ws.rs.BadRequestException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = "classpath:teardown.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -50,19 +49,15 @@ public class UserControllerTest {
         assertEquals(createdDto, getDto);
     }
 
-    @Test
-    public void testCreateAndGet_whenInValid_shouldReturnBadRequest() {
-        UserDto dto = getValidUser().setFirstName(" ");
-        assertThrows(BadRequestException.class, () -> userClient.create(dto));
-        UserDto createdDto = userClient.create(dto);
-        assertThrows(BadRequestException.class, () -> userClient.get(createdDto.getUserId()));
 
-    }
     @Test
-    public void testUpdate_whenValid_shouldPopulateUserId() {
+    public void testUpdateAndGet_whenValid_shouldReturnSameObjects() {
         UserDto dto = getValidUser();
-        UserDto updatedDto = userClient.update(dto);
-        assertNotNull(updatedDto.getUserId());
+        UserDto createdDto = userClient.create(dto);
+        dto.setFirstName("dummy");
+        UserDto updatedDto = userClient.update(createdDto);
+        UserDto getDto = userClient.get(createdDto.getUserId());
+        assertEquals(createdDto, getDto);
     }
 
     @Test
@@ -72,19 +67,15 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testDelete_whenValid_shouldPopulateUserId() {
-        UserDto deletedDto = userClient.delete(dto);
-        UserDto deleteDto = userClient.get(deletedDto.getUserId());
-        assertNotNull(deleteDto);
-
+    public void testDelete_whenValid_shouldReturnEmpty() {
+        UserDto dto = getValidUser();
+        UserDto createdDto = userClient.create(dto);
+        userClient.delete(createdDto.getUserId());
+        assertTrue(userClient.findAll().isEmpty());
     }
 
-    @Test
-    public void testDelete_whenInvalid_shouldReturnBadRequest() {
-        UserDto deletedDto = userClient.create(dto);
-        assertThrows(BadRequestException.class, () -> userClient.delete(deletedDto.getUserId()));
 
-    }
+
 
     private UserDto getValidUser() {
         return new UserDto()

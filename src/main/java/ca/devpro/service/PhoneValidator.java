@@ -2,7 +2,6 @@ package ca.devpro.service;
 
 
 import ca.devpro.api.PhoneDto;
-import ca.devpro.api.UserDto;
 import ca.devpro.exception.ValidationException;
 import ca.devpro.repository.PhoneRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -48,8 +47,8 @@ public class PhoneValidator {
 
     private void validatePhoneNumber(Map<String, String> errors, PhoneDto dto) {
         if (StringUtils.isBlank(dto.getPhoneNumber())) {
-            errors.put("username", PHONE_NUMBER_REQUIRED);
-        } else if(isCreate(dto) && phoneRepository.existsByPhonenumberIgnoreCase(dto.getPhonenumber())) {
+            errors.put("phonenumber", PHONE_NUMBER_REQUIRED);
+        } else if(isCreate(dto) && phoneRepository.existsByPhonenumberIgnoreCase(dto.getPhoneNumber())) {
             errors.put("phonenumber", PHONE_NUMBER_TAKEN);
         }
     }
@@ -57,9 +56,6 @@ public class PhoneValidator {
     private boolean isCreate(PhoneDto dto) {
         return dto.getPhoneId() == null;
     }
-
-
-
 
 
 }

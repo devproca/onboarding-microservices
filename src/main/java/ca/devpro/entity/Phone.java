@@ -31,10 +31,10 @@ public class Phone {
     private String phoneNumber;
 
 
-    public static Phone newInstance(String phonenumber) {
+    public static Phone newInstance(String phoneNumber) {
         Phone phone = new Phone();
         phone.phoneId = UUID.randomUUID();
-        phone.phoneNumber = phonenumber;
+        phone.phoneNumber = phoneNumber;
         return phone;
     }
 
