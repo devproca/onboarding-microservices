@@ -1,6 +1,7 @@
 package ca.devpro.service;
 
 import ca.devpro.api.UserDto;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import ca.devpro.assembler.UserAssembler;
@@ -10,6 +11,7 @@ import ca.devpro.entity.User;
 import ca.devpro.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.mockito.Mockito.*;
 
 import java.util.Map;
