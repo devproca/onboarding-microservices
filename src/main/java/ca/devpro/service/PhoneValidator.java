@@ -16,13 +16,11 @@ import java.util.Map;
 @Component
 public class PhoneValidator {
 
-    @Min(value = 10, message = "It has to be of length 10")
+    @Min(10)
     @Max(10)
     static final String PHONE_NUMBER_REQUIRED = "PHONE_NUMBER_REQUIRED";
-
+    static final String PHONE_NUMBER_LENGTH_INVALID = "PHONE_NUMBER_LENGTH_INVALID";
     static final String PHONE_NUMBER_TAKEN = "PHONE_NUMBER_TAKEN";
-
-
 
     private final PhoneRepository phoneRepository;
 
@@ -50,6 +48,8 @@ public class PhoneValidator {
             errors.put("phonenumber", PHONE_NUMBER_REQUIRED);
         } else if(isCreate(dto) && phoneRepository.existsByPhonenumberIgnoreCase(dto.getPhoneNumber())) {
             errors.put("phonenumber", PHONE_NUMBER_TAKEN);
+        } else if (dto.getPhoneNumber().length() !=10){
+            errors.put("lastName", PHONE_NUMBER_LENGTH_INVALID);
         }
     }
 

@@ -20,4 +20,16 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="create-phone-table" author="doddt">
+        <createTable tableName="phone">
+            <column name="phone_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="phonenumber" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

@@ -14,15 +14,18 @@ import java.util.Map;
 
 @Component
 public class UserValidator {
-    @Min(value = 1, message = "Id can't be less than 1 or bigger than 999999")
-    @Max(999999)
+    @Min(1)
+    @Max(50)
     static final String FIRST_NAME_REQUIRED = "FIRST_NAME_REQUIRED";
-    @Min(value = 1, message = "Id can't be less than 1 or bigger than 999999")
-    @Max(999999)
+    static final String FIRST_NAME_INVALID_LENGTH = "FIRST_NAME_INVALID_LENGTH";
+    @Min(1)
+    @Max(50)
     static final String LAST_NAME_REQUIRED = "LAST_NAME_REQUIRED";
-    @Min(value = 1, message = "Id can't be less than 1 or bigger than 999999")
-    @Max(999999)
+    static final String LAST_NAME_INVALID_LENGTH = "LAST_NAME_INVALID_LENGTH";
+    @Min(1)
+    @Max(50)
     static final String USERNAME_REQUIRED = "USERNAME_REQUIRED";
+    static final String USERNAME_INVALID_LENGTH = "USERNAME_INVALID_LENGTH";
     static final String USERNAME_TAKEN = "USERNAME_TAKEN";
 
 
@@ -51,12 +54,16 @@ public class UserValidator {
     private void validateFirstName(Map<String, String> errors, UserDto dto) {
         if (StringUtils.isBlank(dto.getFirstName())) {
             errors.put("firstName", FIRST_NAME_REQUIRED);
+        } else if (dto.getFirstName().length() >50  || dto.getFirstName().length() <1  ){
+            errors.put("firstName", FIRST_NAME_INVALID_LENGTH);
         }
     }
 
     private void validateLastName(Map<String, String> errors, UserDto dto) {
         if (StringUtils.isBlank(dto.getLastName())) {
             errors.put("lastName", LAST_NAME_REQUIRED);
+        } else if (dto.getLastName().length() >50  || dto.getLastName().length() <1 ){
+            errors.put("lastName", LAST_NAME_INVALID_LENGTH);
         }
     }
 
@@ -65,6 +72,8 @@ public class UserValidator {
             errors.put("username", USERNAME_REQUIRED);
         } else if(isCreate(dto) && userRepository.existsByUsernameIgnoreCase(dto.getUsername())) {
             errors.put("username", USERNAME_TAKEN);
+        } else if (dto.getUsername().length() >50  || dto.getUsername().length() <1 ){
+            errors.put("lastName", USERNAME_INVALID_LENGTH);
         }
     }
 

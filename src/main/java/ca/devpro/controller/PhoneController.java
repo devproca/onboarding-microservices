@@ -19,30 +19,32 @@ public class PhoneController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PhoneDto create(@RequestBody PhoneDto dto) {
+    public PhoneDto create(@RequestBody PhoneDto dto, @PathVariable("userId") UUID userId) {
+        dto.setUserId(userId);
         return phoneService.create(dto);
     }
 
     @GetMapping()
-    public List<PhoneDto> findAll() {
-        return phoneService.findAll();
+    public List<PhoneDto> findAll(@PathVariable("userId") UUID userId) {
+        return phoneService.findAll(userId);
     }
 
     @GetMapping("/{userId}")
-    public PhoneDto get(@PathVariable("phoneId") UUID phoneId) {
-        return phoneService.get(phoneId);
+    public PhoneDto get(@PathVariable("phoneId") UUID phoneId, @PathVariable("userId") UUID userId) {
+        return phoneService.get(phoneId, userId);
     }
 
     @PutMapping("/{userId}")
-    public PhoneDto update(@PathVariable("phoneId") UUID phoneId, @RequestBody PhoneDto dto) {
+    public PhoneDto update(@PathVariable("phoneId") UUID phoneId, @RequestBody PhoneDto dto, @PathVariable("userId") UUID userId) {
+        dto.setUserId(userId);
         dto.setPhoneId(phoneId);
         return phoneService.update(dto);
     }
 
     @DeleteMapping("/{phoneId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("phoneId") UUID phoneId) {
-        phoneService.delete(phoneId);
+    public void delete(@PathVariable("phoneId") UUID phoneId, @PathVariable("userId") UUID userId) {
+        phoneService.delete(phoneId, userId);
     }
 
 

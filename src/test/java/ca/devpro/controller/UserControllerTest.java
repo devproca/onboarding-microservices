@@ -56,7 +56,7 @@ public class UserControllerTest {
         UserDto createdDto = userClient.create(dto);
         dto.setFirstName("dummy");
         UserDto updatedDto = userClient.update(createdDto);
-        UserDto getDto = userClient.get(createdDto.getUserId());
+        UserDto getDto = userClient.get(updatedDto.getUserId());
         assertEquals(createdDto, getDto);
     }
 

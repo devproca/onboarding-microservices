@@ -30,10 +30,16 @@ public class Phone {
     @Column(name = "phonenumber")
     private String phoneNumber;
 
+    @Column(name = "usr_id")
+    @Type(type = "uuid-char")
+    @Setter(AccessLevel.NONE)
+    private UUID userId;
 
-    public static Phone newInstance(String phoneNumber) {
+
+    public static Phone newInstance(String phoneNumber, UUID userId) {
         Phone phone = new Phone();
         phone.phoneId = UUID.randomUUID();
+        phone.userId = userId;
         phone.phoneNumber = phoneNumber;
         return phone;
     }
