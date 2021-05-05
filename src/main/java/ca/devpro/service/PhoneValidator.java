@@ -15,6 +15,7 @@ public class PhoneValidator {
 
     static final String PHONENUMBER_REQUIRED = "PHONENUMBER_REQUIRED";
     static final String PHONENUMBER_TAKEN = "PHONENUMBER_TAKEN";
+    static final String PHONENUMBER_LENGTH_INVALID = "PHONENUMBER_LENGTH_INVALID";
 
     private final PhoneRepository phoneRepository;
 
@@ -32,7 +33,7 @@ public class PhoneValidator {
 
     public Map<String, String> validate(PhoneDto dto) {
         Map<String, String> errors = new LinkedHashMap<>();
-
+        validatePhoneNumber(errors, dto);
         return errors;
     }
 
@@ -41,6 +42,8 @@ public class PhoneValidator {
             errors.put("phoneNumber", PHONENUMBER_REQUIRED);
         } else if(isCreate(dto) && phoneRepository.existsByPhoneNumberIgnoreCase(dto.getPhoneNumber())) {
             errors.put("phoneNumber", PHONENUMBER_TAKEN);
+        } else if(dto.getPhoneNumber().length() != 7) {
+            errors.put("phoneNumber", PHONENUMBER_LENGTH_INVALID);
         }
     }
 

@@ -6,11 +6,10 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "usr")
@@ -35,10 +34,18 @@ public class User {
     @Setter(AccessLevel.NONE)
     private String username;
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name="phone_id")
+    private List<Phone> phones;
+
     public static User newInstance(String username) {
         User user = new User();
         user.userId = UUID.randomUUID();
         user.username = username;
+        user.phones = new ArrayList<>();
         return user;
     }
 

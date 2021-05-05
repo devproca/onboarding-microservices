@@ -1,5 +1,6 @@
 package ca.devpro.client;
 
+import ca.devpro.api.PhoneDto;
 import ca.devpro.api.UserDto;
 import lombok.Setter;
 
@@ -50,6 +51,42 @@ public class UserClient {
         userTarget(userId)
                 .request()
                 .delete(Void.class);
+    }
+
+    public UserDto create(UserDto dto, PhoneDto pdto) {
+        return userTarget()
+                .request()
+                .post(Entity.json(dto), UserDto.class);
+    }
+
+    public UserDto get(UUID userId, UUID phoneID) {
+        return userTarget(userId)
+                .request()
+                .get(UserDto.class);
+    }
+
+    public List<PhoneDto> findAll(UUID userID) {
+        return userTarget()
+                .request()
+                .get(new GenericType<>(){});
+    }
+
+    public PhoneDto update(PhoneDto dto) {
+        return userTarget(dto.getPhoneId())
+                .request()
+                .put(Entity.json(dto), PhoneDto.class);
+    }
+
+    public void deletePhone(UUID phoneId) {
+        userTarget(phoneId)
+                .request()
+                .delete(Void.class);
+    }
+
+    private WebTarget phoneTarget(UUID userId, UUID phoneId){
+        return userTarget(userId)
+                .path("phones")
+                .path(phoneId.toString());
     }
 
     private WebTarget userTarget(UUID userId) {
