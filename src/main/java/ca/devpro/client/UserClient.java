@@ -53,26 +53,26 @@ public class UserClient {
                 .delete(Void.class);
     }
 
-    public UserDto create(UserDto dto, PhoneDto pdto) {
-        return userTarget()
+    public PhoneDto create(UserDto dto, PhoneDto pdto) {
+        return phoneTarget(dto.getUserId())
                 .request()
-                .post(Entity.json(dto), UserDto.class);
+                .post(Entity.json(dto), PhoneDto.class);
     }
 
-    public UserDto get(UUID userId, UUID phoneID) {
-        return userTarget(userId)
+    public PhoneDto get(UUID userId, UUID phoneID) {
+        return phoneTarget(userId,phoneID)
                 .request()
-                .get(UserDto.class);
+                .get(PhoneDto.class);
     }
 
     public List<PhoneDto> findAll(UUID userID) {
-        return userTarget()
+        return phoneTarget(userID)
                 .request()
                 .get(new GenericType<>(){});
     }
 
     public PhoneDto update(PhoneDto dto) {
-        return userTarget(dto.getPhoneId())
+        return phoneTarget(dto.getPhoneId())
                 .request()
                 .put(Entity.json(dto), PhoneDto.class);
     }
@@ -87,6 +87,11 @@ public class UserClient {
         return userTarget(userId)
                 .path("phones")
                 .path(phoneId.toString());
+    }
+
+    private WebTarget phoneTarget(UUID userId) {
+        return userTarget(userId)
+                .path("phones");
     }
 
     private WebTarget userTarget(UUID userId) {

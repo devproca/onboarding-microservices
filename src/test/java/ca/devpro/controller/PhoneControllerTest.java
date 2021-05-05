@@ -1,5 +1,6 @@
 package ca.devpro.controller;
 
+import ca.devpro.api.PhoneDto;
 import ca.devpro.api.UserDto;
 import ca.devpro.client.UserClient;
 
@@ -18,6 +19,7 @@ import javax.ws.rs.BadRequestException;
 public class PhoneControllerTest {
 
     private UserClient userClient;
+    private UserDto testDto;
 
     @LocalServerPort
     private int port;
@@ -26,54 +28,60 @@ public class PhoneControllerTest {
     public void init() {
         userClient = new UserClient();
         userClient.setBaseUri("http://localhost:" + port);
+        testDto = userClient.create(getValidUser());
     }
 
     @Test
-    public void testCreate_whenValid_shouldPopulateUserId() {
-        UserDto dto = getValidUser();
-        UserDto createdDto = userClient.create(dto);
-        assertNotNull(createdDto.getUserId());
+    public void testCreate_whenValid_shouldPopulatePhoneId() {
+        PhoneDto dto = getValidPhone();
+        PhoneDto createdDto = userClient.create(testDto,dto);
+        assertNotNull(createdDto.getPhoneId());
     }
 
     @Test
     public void testCreate_whenInvalid_shouldReturnBadRequest() {
-        UserDto dto = getValidUser().setFirstName(" ");
+        PhoneDto dto = getValidPhone().setPhoneNumber(" ");
 
-        assertThrows(BadRequestException.class, () -> userClient.create(dto));
+        assertThrows(BadRequestException.class, () -> userClient.create(testDto, dto));
     }
 
     @Test
     public void testCreateAndGet_whenValid_shouldReturnSameObjects() {
-        UserDto dto = getValidUser();
-        UserDto createdDto = userClient.create(dto);
-        UserDto getDto = userClient.get(createdDto.getUserId());
+        PhoneDto dto = getValidPhone();
+        PhoneDto createdDto = userClient.create(,testDto,dto);
+        PhoneDto getDto = userClient.get(testDto.getUserId(),createdDto.getPhoneId());
         assertEquals(createdDto, getDto);
     }
 
     @Test
     public void testUpdateAndGet_whenValid_shouldReturnSameObjects() {
-        UserDto dto = getValidUser();
-        UserDto createdDto = userClient.create(dto);
-        dto.setFirstName("new");
+        PhoneDto dto = getValidPhone();
+        PhoneDto createdDto = userClient.create(testDto,dto);
+        dto.setPhoneNumber("8675309");
         createdDto = userClient.update(createdDto);
-        UserDto getDto = userClient.get(createdDto.getUserId());
+        PhoneDto getDto = userClient.get(testDto.getUserId(),createdDto.getPhoneId());
         assertEquals(createdDto, getDto);
     }
 
     @Test
     public void testUpdate_whenInvalid_shouldReturnBadRequest() {
-        UserDto dto = getValidUser();
-        UserDto createdDto = userClient.create(dto);
-        createdDto.setFirstName(" ");
+        PhoneDto dto = getValidPhone();
+        PhoneDto createdDto = userClient.create(testDto,dto);
+        createdDto.setPhoneNumber(" ");
         assertThrows(BadRequestException.class, () -> userClient.update(createdDto));
     }
 
     @Test
     public void testDelete_whenValid_shouldReturnEmpty() {
-        UserDto dto = getValidUser();
-        UserDto createdDto = userClient.create(dto);
-        userClient.delete(createdDto.getUserId());
+        PhoneDto dto = getValidPhone();
+        PhoneDto createdDto = userClient.create(testDto,dto);
+        userClient.delete(createdDto.getPhoneId());
         assertTrue(userClient.findAll().isEmpty());
+    }
+
+    private PhoneDto getValidPhone() {
+        return new PhoneDto()
+                .setPhoneNumber("1234567");
     }
 
     private UserDto getValidUser() {
