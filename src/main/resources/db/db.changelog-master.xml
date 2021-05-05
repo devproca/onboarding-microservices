@@ -17,6 +17,7 @@
             <column name="last_name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
+
         </createTable>
     </changeSet>
 
@@ -28,7 +29,9 @@
             <column name="phonenumber" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-
+            <column name="usr_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

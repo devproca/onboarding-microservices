@@ -57,11 +57,21 @@ public class UserClient {
                 .path(userId.toString());
     }
 
+
+
     private WebTarget userTarget() {
         return baseTarget()
                 .path("api")
                 .path("v1")
                 .path("users");
+
+    }
+
+    private WebTarget phoneTarget(UUID userId, UUID phoneId) {
+        return baseTarget()
+                .path(userId.toString())
+                .path("phones")
+                .path(phoneId.toString());
     }
 
     private WebTarget baseTarget() {

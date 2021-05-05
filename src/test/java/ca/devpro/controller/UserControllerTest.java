@@ -75,8 +75,6 @@ public class UserControllerTest {
     }
 
 
-
-
     private UserDto getValidUser() {
         return new UserDto()
                 .setUsername("doddt")

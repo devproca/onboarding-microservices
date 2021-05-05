@@ -42,6 +42,22 @@ public class UserValidatorTest {
         assertEquals(1, errors.size());
         assertEquals(UserValidator.FIRST_NAME_REQUIRED, errors.get("firstName"));
     }
+
+    @Test
+    public void testValidate_whenFirstName_LengthIsInvalid_LONG_shouldReturnError() {
+        UserDto dto = getValidUser().setFirstName("iubfeiubcecbehbcejcbkdjbe");
+        Map<String, String> errors = userValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(UserValidator.FIRST_NAME_INVALID_LENGTH, errors.get("firstName"));
+    }
+
+    @Test
+    public void testValidate_whenFirstName_LengthIsInvalid_SHORT_shouldReturnError() {
+        UserDto dto = getValidUser().setFirstName("h");
+        Map<String, String> errors = userValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(UserValidator.FIRST_NAME_INVALID_LENGTH, errors.get("firstName"));
+    }
 //    @Test
 //    public void testValidate_whenFirstNameWrong_shouldReturnError() {
 //        UserDto dto = getValidUser().setFirstName("someWrongName");
@@ -56,6 +72,22 @@ public class UserValidatorTest {
         Map<String, String> errors = userValidator.validate(dto);
         assertEquals(1, errors.size());
         assertEquals(UserValidator.LAST_NAME_REQUIRED, errors.get("lastName"));
+    }
+
+    @Test
+    public void testValidate_whenLastName_LengthIsInvalid_LONG_shouldReturnError() {
+        UserDto dto = getValidUser().setLastName("iubfeiugibbcecbehbcejcbkdjbe");
+        Map<String, String> errors = userValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(UserValidator.LAST_NAME_INVALID_LENGTH, errors.get("lastName"));
+    }
+
+    @Test
+    public void testValidate_whenLastName_LengthIsInvalid_SHORT_shouldReturnError() {
+        UserDto dto = getValidUser().setLastName("h");
+        Map<String, String> errors = userValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(UserValidator.LAST_NAME_INVALID_LENGTH, errors.get("lastName"));
     }
 
 //    @Test
@@ -75,6 +107,7 @@ public class UserValidatorTest {
         assertEquals(UserValidator.USERNAME_REQUIRED, errors.get("username"));
 
     }
+
     @Test
     public void testValidate_whenUsernameTaken_shouldReturnError() {
         UserDto dto = getValidUser().setUsername("someName");
@@ -82,6 +115,22 @@ public class UserValidatorTest {
         assertEquals(1, errors.size());
         assertEquals(UserValidator.USERNAME_TAKEN, errors.get("username"));
 
+    }
+
+    @Test
+    public void testValidate_whenUsername_LengthIsInvalid_LONG_shouldReturnError() {
+        UserDto dto = getValidUser().setUsername("iubfeiubcecbehbcejcbkdjbe");
+        Map<String, String> errors = userValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(UserValidator.USERNAME_INVALID_LENGTH, errors.get("username"));
+    }
+
+    @Test
+    public void testValidate_whenUsername_LengthIsInvalid_SHORT_shouldReturnError() {
+        UserDto dto = getValidUser().setUsername("h");
+        Map<String, String> errors = userValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(UserValidator.USERNAME_INVALID_LENGTH, errors.get("username"));
     }
 
 
