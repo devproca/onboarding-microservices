@@ -17,7 +17,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Accessors(chain = true)
-
 public class Phone {
 
     @Id
@@ -26,13 +25,18 @@ public class Phone {
     @Setter(AccessLevel.NONE)
     private UUID phoneId;
 
+    @Column(name = "usr_id")
+    @Type(type = "uuid-char")
+    @Setter(AccessLevel.NONE)
+    private UUID userId;
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public static Phone newInstance(String phoneNumber) {
+    public static Phone newInstance(UUID userId) {
         Phone phone = new Phone();
         phone.phoneId = UUID.randomUUID();
-        phone.phoneNumber = phoneNumber;
+        phone.userId = userId;
         return phone;
     }
 }

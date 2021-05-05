@@ -10,11 +10,12 @@ public class PhoneAssembler {
     public PhoneDto assemble(Phone entity) {
         return new PhoneDto()
                 .setPhoneId(entity.getPhoneId())
+                .setUserId(entity.getUserId())
                 .setPhoneNumber(entity.getPhoneNumber());
     }
 
     public Phone disassemble(PhoneDto dto) {
-        Phone entity = Phone.newInstance(dto.getPhoneNumber());
+        Phone entity = Phone.newInstance(dto.getUserId());
         return disassembleInto(dto, entity);
     }
 

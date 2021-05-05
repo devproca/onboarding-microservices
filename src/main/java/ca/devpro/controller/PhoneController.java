@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/Phones")
+@RequestMapping("/api/v1/users/{userId}/phones")
 public class PhoneController {
 
     @Autowired
@@ -27,20 +30,20 @@ public class PhoneController {
         return phoneService.findAll();
     }
 
-    @GetMapping("/{PhoneId}")
-    public PhoneDto get(@PathVariable("PhoneId") UUID PhoneId) {
-        return phoneService.get(PhoneId);
+    @GetMapping("/{phoneId}")
+    public PhoneDto get(@PathVariable("phoneId") UUID phoneId) {
+        return phoneService.get(phoneId);
     }
 
-    @PutMapping("/{PhoneId}")
-    public PhoneDto update(@PathVariable("PhoneId") UUID PhoneId, @RequestBody PhoneDto dto) {
-        dto.setPhoneId(PhoneId);
+    @PutMapping("/{phoneId}")
+    public PhoneDto update(@PathVariable("phoneId") UUID phoneId, @RequestBody PhoneDto dto) {
+        dto.setPhoneId(phoneId);
         return phoneService.update(dto);
     }
 
-    @DeleteMapping("/{PhoneId}")
+    @DeleteMapping("/{phoneId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("PhoneId") UUID PhoneId) {
-        phoneService.delete(PhoneId);
+    public void delete(@PathVariable("phoneId") UUID phoneId) {
+        phoneService.delete(phoneId);
     }
 }
