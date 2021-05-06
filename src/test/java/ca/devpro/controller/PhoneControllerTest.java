@@ -95,7 +95,8 @@ public class PhoneControllerTest {
     private PhoneDto getValidPhone(UUID userId) {
         return new PhoneDto()
                 .setUserId(userId)
-                .setPhoneNumber("1234567");
+                .setPhoneNumber("1234567")
+                .setPhoneType("CELL");
     }
 
     private UserDto getValidUser() {

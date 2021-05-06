@@ -11,7 +11,8 @@ public class PhoneAssembler {
         return new PhoneDto()
                 .setPhoneId(entity.getPhoneId())
                 .setUserId(entity.getUserId())
-                .setPhoneNumber(entity.getPhoneNumber());
+                .setPhoneNumber(entity.getPhoneNumber())
+                .setPhoneType(entity.getPhoneType());
     }
 
     public Phone disassemble(PhoneDto dto) {
@@ -20,6 +21,7 @@ public class PhoneAssembler {
     }
 
     public Phone disassembleInto(PhoneDto dto, Phone entity) {
-        return entity.setPhoneNumber(dto.getPhoneNumber());
+        return entity.setPhoneNumber(dto.getPhoneNumber())
+                .setPhoneType(dto.getPhoneType());
     }
 }
