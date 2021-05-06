@@ -6,8 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,6 +15,8 @@ public class PhoneValidator {
     static final String PHONE_NUMBER_REQUIRED = "PHONE_NUMBER_REQUIRED";
     static final String PHONE_NUMBER_LENGTH_INVALID = "PHONE_NUMBER_LENGTH_INVALID";
     static final String PHONE_NUMBER_TAKEN = "PHONE_NUMBER_TAKEN";
+
+    static final String PHONE_TYPE_REQUIRED = "PHONE_TYPE_REQUIRED";
 
     private final PhoneRepository phoneRepository;
 
@@ -35,6 +35,7 @@ public class PhoneValidator {
     public Map<String, String> validate(PhoneDto dto) {
         Map<String, String> errors = new LinkedHashMap<>();
         validatePhoneNumber(errors, dto);
+        validatePhoneType(errors, dto);
         return errors;
     }
 
@@ -46,6 +47,12 @@ public class PhoneValidator {
             errors.put("phonenumber", PHONE_NUMBER_TAKEN);
         } else if (dto.getPhoneNumber().length() !=10){
             errors.put("phonenumber", PHONE_NUMBER_LENGTH_INVALID);
+        }
+    }
+
+    private void validatePhoneType(Map<String, String> errors, PhoneDto dto) {
+        if (StringUtils.isBlank(dto.getPhoneType())) {
+            errors.put("phoneType", PHONE_TYPE_REQUIRED);
         }
     }
 

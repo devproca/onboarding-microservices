@@ -64,9 +64,19 @@ public class PhoneValidatorTest {
     }
 
 
+    @Test
+    public void testValidate_whenPhoneTypeBlank_shouldReturnError() {
+        PhoneDto dto = getValidPhone().setPhoneType(" ");
+        Map<String, String> errors = phoneValidator.validate(dto);
+        assertEquals(1, errors.size());
+        assertEquals(PhoneValidator.PHONE_TYPE_REQUIRED, errors.get("phoneType"));
+    }
+
+
     private PhoneDto getValidPhone() {
         return new PhoneDto()
-                .setPhoneNumber("doddt");
+                .setPhoneNumber("doddt")
+                .setPhoneType("cell");
 
     }
 

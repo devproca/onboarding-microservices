@@ -32,6 +32,9 @@
             <column name="usr_id" type="varchar(36)">
                 <constraints nullable="false"/>
             </column>
+            <column name="phone_type" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

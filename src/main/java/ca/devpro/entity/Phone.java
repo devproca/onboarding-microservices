@@ -34,6 +34,9 @@ public class Phone {
     @Column(name = "phonenumber")
     private String phoneNumber;
 
+    @Column(name = "phoneType")
+    private String phoneType;
+
     public static Phone newInstance(UUID userId) {
         Phone phone = new Phone();
         phone.phoneId = UUID.randomUUID();
