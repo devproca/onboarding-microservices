@@ -16,7 +16,7 @@ public class PhoneAssembler {
     }
 
     public Phone disassemble(PhoneDto dto) {
-        Phone entity = Phone.newInstance(dto.getPhoneNumber(), dto.getUserId());
+        Phone entity = Phone.newInstance(dto.getUserId());
         return disassembleInto(dto, entity);
     }
 

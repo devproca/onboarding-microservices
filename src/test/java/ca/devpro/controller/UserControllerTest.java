@@ -52,9 +52,8 @@ public class UserControllerTest {
 
     @Test
     public void testUpdateAndGet_whenValid_shouldReturnSameObjects() {
-        UserDto dto = getValidUser();
+        UserDto dto = getValidUser().setFirstName("dummy");
         UserDto createdDto = userClient.create(dto);
-        dto.setFirstName("dummy");
         UserDto updatedDto = userClient.update(createdDto);
         UserDto getDto = userClient.get(updatedDto.getUserId());
         assertEquals(createdDto, getDto);
@@ -62,8 +61,11 @@ public class UserControllerTest {
 
     @Test
     public void testUpdate_whenInvalid_shouldReturnBadRequest() {
-        UserDto dto = getValidUser().setFirstName(" ");
-        assertThrows(BadRequestException.class, () -> userClient.update(dto));
+        UserDto dto = getValidUser();
+        UserDto createdDto = userClient.create(dto);
+        createdDto.setFirstName(" ");
+//        UserDto getDto = userClient.get(updatedDto.getUserId());
+        assertThrows(BadRequestException.class, () -> userClient.update(createdDto));
     }
 
     @Test

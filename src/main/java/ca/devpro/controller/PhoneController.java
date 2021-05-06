@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/user/phones")
+@RequestMapping("/api/v1/user/{userId}/phones")
 public class PhoneController {
 
 
@@ -29,12 +29,12 @@ public class PhoneController {
         return phoneService.findAll();
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{phoneId}")
     public PhoneDto get(@PathVariable("phoneId") UUID phoneId) {
         return phoneService.get(phoneId);
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/{phoneId}")
     public PhoneDto update(@PathVariable("phoneId") UUID phoneId, @RequestBody PhoneDto dto) {
         dto.setPhoneId(phoneId);
         return phoneService.update(dto);

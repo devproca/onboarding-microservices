@@ -1,5 +1,6 @@
 package ca.devpro.client;
 
+import ca.devpro.api.PhoneDto;
 import ca.devpro.api.UserDto;
 import lombok.Setter;
 
@@ -52,26 +53,56 @@ public class UserClient {
                 .delete(Void.class);
     }
 
+    public PhoneDto createPhone(PhoneDto dto) {
+        return phoneTarget(dto.getUserId())
+                .request()
+                .post(Entity.json(dto), PhoneDto.class);
+    }
+
+    public PhoneDto getPhone(UUID userId, UUID phoneId) {
+        return phoneTarget(userId, phoneId)
+                .request()
+                .get(PhoneDto.class);
+    }
+
+    public List<PhoneDto> findAllPhones(UUID userId) {
+        return phoneTarget(userId)
+                .request()
+                .get(new GenericType<>(){});
+    }
+
+    public PhoneDto updatePhone(PhoneDto dto) {
+        return phoneTarget(dto.getUserId(), dto.getPhoneId())
+                .request()
+                .put(Entity.json(dto), PhoneDto.class);
+    }
+
+    public void deletePhone(UUID userId, UUID phoneId) {
+        phoneTarget(userId, phoneId)
+                .request()
+                .delete(Void.class);
+    }
+
+    private WebTarget phoneTarget(UUID userId, UUID phoneId){
+        return phoneTarget(userId)
+                .path(phoneId.toString());
+    }
+
+    private WebTarget phoneTarget(UUID userId) {
+        return userTarget(userId)
+                .path("phones");
+    }
+
     private WebTarget userTarget(UUID userId) {
         return userTarget()
                 .path(userId.toString());
     }
-
-
 
     private WebTarget userTarget() {
         return baseTarget()
                 .path("api")
                 .path("v1")
                 .path("users");
-
-    }
-
-    private WebTarget phoneTarget(UUID userId, UUID phoneId) {
-        return baseTarget()
-                .path(userId.toString())
-                .path("phones")
-                .path(phoneId.toString());
     }
 
     private WebTarget baseTarget() {

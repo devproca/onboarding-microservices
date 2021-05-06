@@ -36,11 +36,10 @@ public class Phone {
     private UUID userId;
 
 
-    public static Phone newInstance(String phoneNumber, UUID userId) {
+    public static Phone newInstance(UUID userId) {
         Phone phone = new Phone();
         phone.phoneId = UUID.randomUUID();
         phone.userId = userId;
-        phone.phoneNumber = phoneNumber;
         return phone;
     }
 

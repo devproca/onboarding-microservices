@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface PhoneRepository extends JpaRepository<Phone, UUID> {
-    boolean existsByPhonenumberIgnoreCase(String phonenumber);
+    boolean existsByPhoneNumberIgnoreCase(String phoneNumber);
 }

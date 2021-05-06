@@ -44,7 +44,7 @@ public class PhoneValidator {
     private void validatePhoneNumber(Map<String, String> errors, PhoneDto dto) {
         if (StringUtils.isBlank(dto.getPhoneNumber())) {
             errors.put("phonenumber", PHONE_NUMBER_REQUIRED);
-        } else if(isCreate(dto) && phoneRepository.existsByPhonenumberIgnoreCase(dto.getPhoneNumber())) {
+        } else if(isCreate(dto) && phoneRepository.existsByPhoneNumberIgnoreCase(dto.getPhoneNumber())) {
             errors.put("phonenumber", PHONE_NUMBER_TAKEN);
         } else if (dto.getPhoneNumber().length() !=10){
             errors.put("phonenumber", PHONE_NUMBER_LENGTH_INVALID);

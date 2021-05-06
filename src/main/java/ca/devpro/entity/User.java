@@ -34,17 +34,15 @@ public class User {
     @Setter(AccessLevel.NONE)
     private String username ;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    @JoinColumn(name="phone_id")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", orphanRemoval = true)
     private List<Phone> phones = new ArrayList<>();
 
     public static User newInstance(String username) {
         User user = new User();
         user.userId = UUID.randomUUID();
         user.username = username;
+        user.phones = new ArrayList<>();
         return user;
     }
 

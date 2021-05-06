@@ -20,7 +20,7 @@ public class PhoneValidatorTest {
     @BeforeEach
     public void init() {
         phoneRepository = mock(PhoneRepository.class);
-        when(phoneRepository.existsByPhonenumberIgnoreCase(anyString())).thenAnswer(invocation -> {
+        when(phoneRepository.existsByPhoneNumberIgnoreCase(anyString())).thenAnswer(invocation -> {
             String suppliedPhonenumber = invocation.getArgument(0);
             if ("somePhoneNumber".equals(suppliedPhonenumber)) {
                 return true;
