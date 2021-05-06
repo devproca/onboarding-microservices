@@ -7,8 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.util.StreamUtils;
 
 import javax.ws.rs.BadRequestException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,8 +68,9 @@ public class UserControllerTest {
 
     @Test
     public void testUpdate_whenInvalid_shouldReturnBadRequest() {
-        UserDto dto = getValidUser().setFirstName(" ");
-        assertThrows(BadRequestException.class, () -> userClient.update(dto));
+        UserDto createdDto = userClient.create(getValidUser());
+        createdDto.setFirstName("  ");
+        assertThrows(BadRequestException.class, () -> userClient.update(createdDto));
     }
 
     @Test

@@ -14,8 +14,6 @@ import java.util.Map;
 @Component
 public class PhoneValidator {
 
-    @Min(10)
-    @Max(10)
     static final String PHONE_NUMBER_REQUIRED = "PHONE_NUMBER_REQUIRED";
     static final String PHONE_NUMBER_LENGTH_INVALID = "PHONE_NUMBER_LENGTH_INVALID";
     static final String PHONE_NUMBER_TAKEN = "PHONE_NUMBER_TAKEN";
@@ -44,7 +42,7 @@ public class PhoneValidator {
     private void validatePhoneNumber(Map<String, String> errors, PhoneDto dto) {
         if (StringUtils.isBlank(dto.getPhoneNumber())) {
             errors.put("phonenumber", PHONE_NUMBER_REQUIRED);
-        } else if(isCreate(dto) && phoneRepository.existsByPhonenumberIgnoreCase(dto.getPhoneNumber())) {
+        } else if(isCreate(dto) && phoneRepository.existsByPhoneNumberIgnoreCase(dto.getPhoneNumber())) {
             errors.put("phonenumber", PHONE_NUMBER_TAKEN);
         } else if (dto.getPhoneNumber().length() !=10){
             errors.put("phonenumber", PHONE_NUMBER_LENGTH_INVALID);
