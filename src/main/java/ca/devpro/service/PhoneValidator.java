@@ -14,8 +14,6 @@ import java.util.Map;
 @Component
 public class PhoneValidator {
 
-    @Min(10)
-    @Max(10)
     static final String PHONE_NUMBER_REQUIRED = "PHONE_NUMBER_REQUIRED";
     static final String PHONE_NUMBER_LENGTH_INVALID = "PHONE_NUMBER_LENGTH_INVALID";
     static final String PHONE_NUMBER_TAKEN = "PHONE_NUMBER_TAKEN";

@@ -34,7 +34,6 @@ public class User {
     @Setter(AccessLevel.NONE)
     private String username ;
 
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", orphanRemoval = true)
     private List<Phone> phones = new ArrayList<>();
 
