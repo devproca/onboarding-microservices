@@ -31,7 +31,7 @@ public class PhoneValidatorTest {
     }
 
     @Test
-    public void testValidate_whenPhonenumberBlank_shouldReturnError() {
+    public void testValidate_whenPhoneNumberBlank_shouldReturnError() {
         PhoneDto dto = getValidPhone().setPhoneNumber(" ");
         Map<String, String> errors = phoneValidator.validate(dto);
         assertEquals(1, errors.size());
@@ -39,7 +39,7 @@ public class PhoneValidatorTest {
     }
 
     @Test
-    public void testValidate_whenPhonenumberTaken_shouldReturnError() {
+    public void testValidate_whenPhoneNumberTaken_shouldReturnError() {
         PhoneDto dto = getValidPhone().setPhoneNumber("somePhoneNumber");
         Map<String, String> errors = phoneValidator.validate(dto);
         assertEquals(1, errors.size());
@@ -75,7 +75,7 @@ public class PhoneValidatorTest {
 
     private PhoneDto getValidPhone() {
         return new PhoneDto()
-                .setPhoneNumber("doddt")
+                .setPhoneNumber("3062217649")
                 .setPhoneType("cell");
 
     }
