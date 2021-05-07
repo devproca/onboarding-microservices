@@ -38,4 +38,33 @@
         </createTable>
     </changeSet>
 
+
+    <changeSet id="create-namechange-table" author="essama">
+        <createTable tableName="namechange">
+            <column name="namechange_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="usr_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="previous_username" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_username" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="previous_firstname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_firstname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="previous_lastname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_lastname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
