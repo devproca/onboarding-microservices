@@ -21,7 +21,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="create-phone-table" author="doddt">
+    <changeSet id="create-phone-table" author="essama">
         <createTable tableName="phone">
             <column name="phone_id" type="varchar(36)">
                 <constraints primaryKey="true"/>
@@ -37,5 +37,13 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="create-ChangeHistory-table" author="essama">
+        <createTable tableName="changehistory">
+
+        </createTable>
+    </changeSet>
+
+
 
 </databaseChangeLog>
