@@ -15,10 +15,7 @@ import java.util.Map;
 @Component
 public class NameChangeValidator {
 
-    static final String FIRST_NAME_REQUIRED = "FIRST_NAME_REQUIRED";
-    static final String LAST_NAME_REQUIRED = "LAST_NAME_REQUIRED";
-    static final String USERNAME_REQUIRED = "USERNAME_REQUIRED";
-    static final String USERNAME_TAKEN = "USERNAME_TAKEN";
+    static final String NAME_CHANGE_REQUIRED = "NAME_CHANGE_REQUIRED";
 
     private final NameChangeRepository nameChangeRepository;
 
@@ -27,39 +24,42 @@ public class NameChangeValidator {
         this.nameChangeRepository = nameChangeRepository;
     }
 
-    public void validateAndThrow(UserDto dto) {
+    public void validateAndThrow(NameChangeDto dto) {
         Map<String, String> errors = validate(dto);
         if (!errors.isEmpty()) {
             throw new ValidationException(errors);
         }
     }
 
-    public Map<String, String> validate(UserDto dto) {
+    public Map<String, String> validate(NameChangeDto dto) {
         Map<String, String> errors = new LinkedHashMap<>();
-        validateFirstName(errors, dto);
-        validateLastName(errors, dto);
-        validateUsername(errors, dto);
+        if (!userNameChanged(dto) && !firstNameChanged(dto) && !lastNameChanged(dto)){
+            errors.put("nameChange",NAME_CHANGE_REQUIRED);
+        }
         return errors;
     }
 
-    private void validateFirstName(Map<String, String> errors, NameChangeDto dto) {
-        if (StringUtils.isBlank(dto.getFirstName())) {
-            errors.put("firstName", FIRST_NAME_REQUIRED);
+    private boolean userNameChanged(NameChangeDto dto) {
+        if (dto.getPreviousUsername() == dto.getPreviousUsername()){
+            return false;
+        } else {
+            return true;
         }
     }
 
-    private void validateLastName(Map<String, String> errors, UserDto dto) {
-        if (StringUtils.isBlank(dto.getLastName())) {
-            errors.put("lastName", LAST_NAME_REQUIRED);
+    private boolean firstNameChanged(NameChangeDto dto) {
+        if (dto.getPreviousFirstName() == dto.getPreviousFirstName()){
+            return false;
+        } else {
+            return true;
         }
     }
 
-    private void validateUsername(Map<String, String> errors, UserDto dto) {
-        if (StringUtils.isBlank(dto.getUsername())) {
-            errors.put("username", USERNAME_REQUIRED);
-        } else if(isCreate(dto) && userRepository.existsByUsernameIgnoreCase(dto.getUsername())) {
-            errors.put("username", USERNAME_TAKEN);
+    private boolean lastNameChanged(NameChangeDto dto) {
+        if (dto.getPreviousLastName() == dto.getPreviousLastName()){
+            return false;
+        } else {
+            return true;
         }
     }
-    private boolean userName 
 }

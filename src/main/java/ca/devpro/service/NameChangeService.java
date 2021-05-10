@@ -36,10 +36,10 @@ public class NameChangeService {
         nameChangeRepository.save(entity);
         return nameChangeAssembler.assemble(entity);
     }
-    public List<NameChangeDto> findAll(UUID userId) {
-        return phoneRepository.findAll()
-                .stream()
-                .map(phoneAssembler::assemble)
-                .collect(Collectors.toList());
-    }
+//    public List<NameChangeDto> findAll(UUID userId) {
+//        return phoneRepository.findAll()
+//                .stream()
+//                .map(phoneAssembler::assemble)
+//                .collect(Collectors.toList());
+//    }
 }
