@@ -57,6 +57,26 @@ public class PhoneService {
         });
     }
 
+    public void initiateVerification(UUID phoneId) {
+        Phone phone = phoneRepository.findById(phoneId).get();
+        String verificationKey = VerificationService.generateVerifyCode();
+
+        phone.setVerificationKey(verificationKey);
+        phoneRepository.save(phone);
+
+        verificationService.InitiateVerification(phone.getPhoneNumber(), verificationKey);
+    }
+
+    public void completeVerification(String verificationKey,  UUID phoneId) {
+        Phone phone = phoneRepository.findById(phoneId).get();
+
+        if (phone.getVerificationKey().equals(verificationKey)){
+            phone.setIsVerified(true);
+        }
+
+        phoneRepository.save(phone);
+    }
+
 
 
 }

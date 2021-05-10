@@ -38,11 +38,11 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="create-ChangeHistory-table" author="essama">
-        <createTable tableName="changehistory">
+<!--    <changeSet id="create-ChangeHistory-table" author="essama">-->
+<!--        <createTable tableName="changehistory">-->
 
-        </createTable>
-    </changeSet>
+<!--        </createTable>-->
+<!--    </changeSet>-->
 
 
 

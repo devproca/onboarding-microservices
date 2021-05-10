@@ -10,7 +10,7 @@ public class ChangeHistoryAssembler {
 
     public ChangeHistoryDto assemble(ChangeHistory entity) {
         return new ChangeHistoryDto()
-                .setVersionId(entity.getNewId())
+                .setVersionId(entity.getVersionId())
                 .setUserId(entity.getUserId())
                 .setPreviousFirstName(entity.getPreviousFirstName())
                 .setPreviousLastName(entity.getPreviousLastName())

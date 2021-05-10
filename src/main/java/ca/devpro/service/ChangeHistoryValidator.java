@@ -1,21 +1,21 @@
 package ca.devpro.service;
 
 import ca.devpro.api.ChangeHistoryDto;
-import ca.devpro.api.UserDto;
 import ca.devpro.exception.ValidationException;
 import ca.devpro.repository.ChangeHistoryRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Component
 public class ChangeHistoryValidator {
 
-    static final String FIRST_NAME_REQUIRED = "FIRST_NAME_REQUIRED";
-    static final String LAST_NAME_REQUIRED = "LAST_NAME_REQUIRED";
-    static final String USERNAME_REQUIRED = "USERNAME_REQUIRED";
-    static final String USERNAME_TAKEN = "USERNAME_TAKEN";
+    static final String FIRST_NAME_NOT_CHANGED = "FIRST_NAME_NOT_CHANGED";
+    static final String LAST_NAME_NOT_CHANGED = "LAST_NAME_NOT_CHANGED";
+    static final String USERNAME_NOT_CHANGED = "USERNAME_NOT_CHANGED";
+
 
     private final ChangeHistoryRepository changeHistoryRepository;
 
@@ -39,28 +39,24 @@ public class ChangeHistoryValidator {
         return errors;
     }
 
-    private void validateUpdatedFirstName(Map<String, String> errors, UserDto dto) {
-        if (StringUtils.isBlank(dto.getFirstName())) {
-            errors.put("firstName", FIRST_NAME_REQUIRED);
+    private void validateUpdatedFirstName(Map<String, String> errors, ChangeHistoryDto dto) {
+        if (dto.getPreviousFirstName().equals(dto.getUpdatedFirstName())) {
+            errors.put("updatedFirstName", FIRST_NAME_NOT_CHANGED);
         }
     }
 
-    private void validateLastName(Map<String, String> errors, UserDto dto) {
-        if (StringUtils.isBlank(dto.getLastName())) {
-            errors.put("lastName", LAST_NAME_REQUIRED);
+    private void validateUpdatedLastName(Map<String, String> errors, ChangeHistoryDto dto) {
+        if (dto.getPreviousLastName().equals(dto.getUpdatedLastName())) {
+            errors.put("updatedLastName", LAST_NAME_NOT_CHANGED);
         }
     }
 
-    private void validateUsername(Map<String, String> errors, UserDto dto) {
-        if (StringUtils.isBlank(dto.getUsername())) {
-            errors.put("username", USERNAME_REQUIRED);
-        } else if(isCreate(dto) && userRepository.existsByUsernameIgnoreCase(dto.getUsername())) {
-            errors.put("username", USERNAME_TAKEN);
+    private void validateUpdatedUsername(Map<String, String> errors, ChangeHistoryDto dto) {
+        if (dto.getPreviousLastName().equals(dto.getUpdatedLastName())) {
+            errors.put("updatedUsername", USERNAME_NOT_CHANGED);
         }
+
     }
 
-    private boolean isCreate(UserDto dto) {
-        return dto.getUserId() == null;
-    }
 
 }
