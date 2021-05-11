@@ -1,5 +1,6 @@
 package ca.devpro.service;
 
+import ca.devpro.api.NameChangeDto;
 import ca.devpro.api.UserDto;
 import ca.devpro.assembler.UserAssembler;
 import ca.devpro.entity.User;
@@ -21,6 +22,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private UserValidator userValidator;
+    @Autowired
+    private NameChangeService nameChangeService;
 
     public UserDto create(UserDto dto) {
         userValidator.validateAndThrow(dto);
@@ -45,9 +48,23 @@ public class UserService {
     public UserDto update(UserDto dto) {
         userValidator.validateAndThrow(dto);
         return userRepository.findById(dto.getUserId())
+                .stream()
+                .peek(entity -> {
+                    NameChangeDto nameChange = new NameChangeDto()
+                            .setUserId(entity.getUserId())
+                            .setPreviousFirstName(entity.getFirstName())
+                            .setUpdatedFirstName(dto.getFirstName())
+                            .setPreviousLastName(entity.getLastName())
+                            .setUpdatedLastName(dto.getLastName())
+                            .setPreviousUsername(entity.getUsername())
+                            .setUpdatedUsername(dto.getUsername());
+
+                    nameChangeService.updateName(nameChange);
+                })
                 .map(entity -> userAssembler.disassembleInto(dto, entity))
                 .map(userRepository::save)
                 .map(userAssembler::assemble)
+                .findFirst()
                 .orElseThrow(() -> new NotFoundException());
     }
 

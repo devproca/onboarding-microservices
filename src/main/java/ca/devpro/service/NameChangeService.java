@@ -19,14 +19,31 @@ public class NameChangeService {
     private NameChangeAssembler nameChangeAssembler;
     @Autowired
     private NameChangeRepository nameChangeRepository;
-    @Autowired
-    private NameChangeValidator nameChangeValidator;
 
-    public NameChangeDto updateName(NameChangeDto dto) {
-        nameChangeValidator.validateAndThrow(dto);
+    public void updateName(NameChangeDto dto) {
+        if (!isAnyInformationChanged(dto)) {
+            return;
+        }
         NameChange entity = nameChangeAssembler.disassemble(dto);
         nameChangeRepository.save(entity);
-        return nameChangeAssembler.assemble(entity);
+    }
+
+    private boolean isAnyInformationChanged(NameChangeDto dto) {
+        return isUsernameChanged(dto) ||
+                isFirstNameChanged(dto) ||
+                isLastNameChanged(dto);
+    }
+
+    private boolean isUsernameChanged(NameChangeDto dto) {
+        return !dto.getPreviousUsername().equals(dto.getUpdatedUsername());
+    }
+
+    private boolean isFirstNameChanged(NameChangeDto dto) {
+        return !dto.getPreviousFirstName().equals(dto.getUpdatedFirstName());
+    }
+
+    private boolean isLastNameChanged(NameChangeDto dto) {
+        return !dto.getPreviousLastName().equals(dto.getUpdatedLastName());
     }
 
     public List<NameChangeDto> findAll() {

@@ -10,17 +10,12 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/users/{userId}/nameChange")
+@RequestMapping("/api/v1/users/{userId}/name-changes")
 
 public class NameChangeController {
+
     @Autowired
     private NameChangeService nameChangeService;
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public NameChangeDto updateName(@RequestBody NameChangeDto dto) {
-        return nameChangeService.updateName(dto);
-    }
 
     @GetMapping()
     public List<NameChangeDto> findAllNameChanges() {

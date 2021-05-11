@@ -9,7 +9,6 @@ import java.util.UUID;
 
 @Data
 @Accessors(chain = true)
-
 public class NameChangeDto {
     private UUID userId;
     private UUID nameChangeId;
