@@ -6,8 +6,6 @@ import ca.devpro.config.TwilioConfiguration;
 import ca.devpro.entity.Phone;
 import ca.devpro.exception.NotFoundException;
 import ca.devpro.repository.PhoneRepository;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.rest.api.v2010.account.MessageCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,11 +80,9 @@ public class PhoneService {
         from.setPhoneNumber(twilioConfiguration.getTwilioNumber());
         Phone to = new Phone();
         to.setPhoneNumber(phoneNumber);
-        String body = "Hi";
-        MessageCreator creator = Message.creator(to,
-                from,
-                body);
-        creator.create();
+        String body = "verify";
+//        MessageCreator creator = Message.creator(to, from, body);
+//        creator.create();
     }
 
     public static String createVerificationKey() {

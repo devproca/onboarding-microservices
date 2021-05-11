@@ -35,14 +35,43 @@
             <column name="phone_type" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
+            <column name="isverified" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="verificationkey" type="varchar(6)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
-<!--    <changeSet id="create-ChangeHistory-table" author="essama">-->
-<!--        <createTable tableName="changehistory">-->
-
-<!--        </createTable>-->
-<!--    </changeSet>-->
+    <changeSet id="create-changehistory-table" author="essama">
+        <createTable tableName="changehistory">
+            <column name="usr_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="previous_firstname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_firstname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="previous_lastname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_lastname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="previous_username" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_username" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 
 
 
