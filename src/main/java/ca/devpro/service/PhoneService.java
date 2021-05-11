@@ -70,36 +70,21 @@ public class PhoneService {
 
     public void initiateVerification(UUID phoneId) {
         Phone phone = phoneRepository.findById(phoneId).get();
-        String verificationKey = createVerificationKey();
+        String verificationKey = VerificationService.generateVerifyCode();
+
         phone.setVerificationKey(verificationKey);
         phoneRepository.save(phone);
-        initiateVerification(phone.getPhoneNumber());
-    }
 
-    public static void initiateVerification(String phoneNumber) {
-        Phone from = new Phone();
-        from.setPhoneNumber(twilioConfiguration.getTwilioNumber());
-        Phone to = new Phone();
-        to.setPhoneNumber(phoneNumber);
-        String body = "Hi";
-        MessageCreator creator = Message.creator(to,
-                from,
-                body);
-        creator.create();
-
-    }
-
-    public static String createVerificationKey() {
-        Random rnd = new Random();
-        int key = rnd.nextInt(999999);
-        return String.format("%06d", key);
+        verificationService.InitiateVerification(phone.getPhoneNumber(), verificationKey);
     }
 
     public void completeVerification(String verificationKey,  UUID phoneId) {
         Phone phone = phoneRepository.findById(phoneId).get();
+
         if (phone.getVerificationKey().equals(verificationKey)){
             phone.setIsVerified(true);
         }
+
         phoneRepository.save(phone);
     }
 
