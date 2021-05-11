@@ -1,18 +1,10 @@
 package ca.devpro.service;
 
 import ca.devpro.api.NameChangeDto;
-import ca.devpro.api.PhoneDto;
-import ca.devpro.api.UserDto;
 import ca.devpro.entity.NameChange;
-import ca.devpro.service.UserService;
-import ca.devpro.assembler.PhoneAssembler;
-import ca.devpro.entity.Phone;
-import ca.devpro.entity.User;
 import ca.devpro.exception.NotFoundException;
 import ca.devpro.repository.NameChangeRepository;
 import ca.devpro.assembler.NameChangeAssembler;
-import ca.devpro.service.NameChangeValidator;
-import ca.devpro.repository.PhoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,10 +41,4 @@ public class NameChangeService {
                 .map(nameChangeAssembler::assemble)
                 .orElseThrow(() -> new NotFoundException());
     }
-//    public List<NameChangeDto> findAll(UUID userId) {
-//        return phoneRepository.findAll()
-//                .stream()
-//                .map(phoneAssembler::assemble)
-//                .collect(Collectors.toList());
-//    }
 }

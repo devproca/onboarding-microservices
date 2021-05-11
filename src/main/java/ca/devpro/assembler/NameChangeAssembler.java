@@ -1,9 +1,7 @@
 package ca.devpro.assembler;
 
 import ca.devpro.api.NameChangeDto;
-import ca.devpro.api.UserDto;
 import ca.devpro.entity.NameChange;
-import ca.devpro.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +10,7 @@ public class NameChangeAssembler {
         return new NameChangeDto()
                 .setNameChangeId(entity.getNameChangeId())
                 .setUserId(entity.getUserId())
+                .setTimestamp(entity.getTimestamp())
                 .setPreviousFirstName(entity.getPreviousFirstName())
                 .setPreviousLastName(entity.getPreviousLastName())
                 .setPreviousUsername(entity.getPreviousUsername())

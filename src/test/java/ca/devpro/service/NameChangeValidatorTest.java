@@ -1,24 +1,17 @@
 package ca.devpro.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import ca.devpro.api.NameChangeDto;
 import ca.devpro.api.UserDto;
 import ca.devpro.repository.NameChangeRepository;
-import ca.devpro.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ca.devpro.api.PhoneDto;
-import ca.devpro.api.UserDto;
 import ca.devpro.client.UserClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
-
 import java.util.Map;
-import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

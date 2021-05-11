@@ -2,7 +2,7 @@ package ca.devpro.api;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import static javax.persistence.TemporalType.TIMESTAMP;
+import java.sql.Timestamp;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -13,7 +13,7 @@ import java.util.UUID;
 public class NameChangeDto {
     private UUID userId;
     private UUID nameChangeId;
-    private Timestamp date;
+    private Timestamp timestamp;
     private String previousUsername;
     private String updatedUsername;
     private String previousFirstName;

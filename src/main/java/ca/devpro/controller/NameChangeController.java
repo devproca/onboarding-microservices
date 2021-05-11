@@ -1,9 +1,7 @@
 package ca.devpro.controller;
 
 import ca.devpro.api.NameChangeDto;
-import ca.devpro.api.UserDto;
 import ca.devpro.service.NameChangeService;
-import ca.devpro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

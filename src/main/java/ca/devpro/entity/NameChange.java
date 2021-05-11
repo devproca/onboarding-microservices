@@ -1,7 +1,6 @@
 package ca.devpro.entity;
 
 import ca.devpro.api.NameChangeDto;
-import ca.devpro.api.UserDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -31,6 +32,11 @@ public class NameChange {
     @Type(type = "uuid-char")
     @Setter(AccessLevel.NONE)
     private UUID userId;
+
+    @Column(name = "timestamp")
+    @Type(type = "timestamp")
+    @Setter(AccessLevel.NONE)
+    private Timestamp timestamp;
 
     @Column(name = "previous_username")
     private String previousUsername;
@@ -55,6 +61,7 @@ public class NameChange {
 
         nameChange.nameChangeId = UUID.randomUUID();
         nameChange.userId = dto.getUserId();
+        nameChange.timestamp = Timestamp.from(Instant.now());
         nameChange.previousUsername = dto.getPreviousUsername();
         nameChange.previousFirstName = dto.getPreviousFirstName();
         nameChange.previousLastName = dto.getPreviousLastName();

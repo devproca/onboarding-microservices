@@ -47,6 +47,9 @@
             <column name="usr_id" type="varchar(36)">
                 <constraints nullable="false"/>
             </column>
+            <column name="timestamp" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
             <column name="previous_username" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
