@@ -65,7 +65,7 @@ public class NameChangeValidatorTest {
         NameChangeDto nameChangeDto = new NameChangeDto();
         nameChangeDto.setUserId(dto.getUserId());
         nameChangeDto.setPreviousUsername(dto.getUsername());
-        nameChangeDto.setUpdatedUserName(dto.getUsername());
+        nameChangeDto.setUpdatedUsername(dto.getUsername());
         nameChangeDto.setPreviousFirstName(dto.getFirstName());
         nameChangeDto.setUpdatedFirstName(dto.getFirstName());
         nameChangeDto.setPreviousLastName(dto.getLastName());

@@ -1,5 +1,6 @@
 package ca.devpro.client;
 
+import ca.devpro.api.NameChangeDto;
 import ca.devpro.api.PhoneDto;
 import ca.devpro.api.UserDto;
 import lombok.Setter;
@@ -81,6 +82,39 @@ public class UserClient {
         phoneTarget(userId, phoneId)
                 .request()
                 .delete(Void.class);
+    }
+
+    public NameChangeDto updateName(NameChangeDto dto) {
+        UserDto userDto = get(dto.getUserId());
+        userDto.setUsername(dto.getUpdatedUsername());
+        userDto.setFirstName(dto.getUpdatedFirstName());
+        userDto.setLastName(dto.getUpdatedLastName());
+        userDto = update(userDto);
+        return nameChangeTarget(dto.getUserId())
+                .request()
+                .post(Entity.json(dto), NameChangeDto.class);
+    }
+
+    public NameChangeDto getNameChange(UUID userId, UUID nameChangeId) {
+        return nameChangeTarget(userId, nameChangeId)
+                .request()
+                .get(NameChangeDto.class);
+    }
+
+    public List<NameChangeDto> findAllNameChanges(UUID userId) {
+        return nameChangeTarget(userId)
+                .request()
+                .get(new GenericType<>(){});
+    }
+
+    private WebTarget nameChangeTarget(UUID userId, UUID nameChangeId) {
+        return userTarget(userId)
+                .path(nameChangeId.toString());
+    }
+
+    private WebTarget nameChangeTarget(UUID userId) {
+        return userTarget(userId)
+                .path("nameChange");
     }
 
     private WebTarget phoneTarget(UUID userId, UUID phoneId){

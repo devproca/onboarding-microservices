@@ -17,7 +17,7 @@ public class NameChangeAssembler {
                 .setPreviousUsername(entity.getPreviousUsername())
                 .setUpdatedFirstName(entity.getUpdatedFirstName())
                 .setUpdatedLastName(entity.getUpdatedLastName())
-                .setUpdatedUserName(entity.getUpdatedUsername());
+                .setUpdatedUsername(entity.getUpdatedUsername());
     }
 
     public NameChange disassemble(NameChangeDto dto) {
@@ -26,11 +26,11 @@ public class NameChangeAssembler {
     }
 
     public NameChange disassembleInto(NameChangeDto dto, NameChange entity) {
-        return entity.setPreviousFirstName(entity.getPreviousFirstName())
-                .setPreviousLastName(entity.getPreviousLastName())
-                .setPreviousUsername(entity.getPreviousUsername())
-                .setUpdatedFirstName(entity.getUpdatedFirstName())
-                .setUpdatedLastName(entity.getUpdatedLastName())
-                .setUpdatedUsername(entity.getUpdatedUsername());
+        return entity.setPreviousFirstName(dto.getPreviousFirstName())
+                .setPreviousLastName(dto.getPreviousLastName())
+                .setPreviousUsername(dto.getPreviousUsername())
+                .setUpdatedFirstName(dto.getUpdatedFirstName())
+                .setUpdatedLastName(dto.getUpdatedLastName())
+                .setUpdatedUsername(dto.getUpdatedUsername());
     }
 }

@@ -58,7 +58,7 @@ public class NameChange {
         nameChange.previousUsername = dto.getPreviousUsername();
         nameChange.previousFirstName = dto.getPreviousFirstName();
         nameChange.previousLastName = dto.getPreviousLastName();
-        nameChange.updatedUsername = dto.getUpdatedUserName();
+        nameChange.updatedUsername = dto.getUpdatedUsername();
         nameChange.updatedFirstName = dto.getUpdatedFirstName();
         nameChange.updatedLastName = dto.getUpdatedLastName();
 
