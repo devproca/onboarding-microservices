@@ -1,5 +1,6 @@
 package ca.devpro.client;
 
+import ca.devpro.api.ChangeHistoryDto;
 import ca.devpro.api.PhoneDto;
 import ca.devpro.api.UserDto;
 import lombok.Setter;
@@ -83,6 +84,25 @@ public class UserClient {
                 .delete(Void.class);
     }
 
+    public ChangeHistoryDto createChangeHistory(ChangeHistoryDto dto) {
+        return changeHistoryTarget(dto.getUserId())
+                .request()
+                .post(Entity.json(dto), ChangeHistoryDto.class);
+    }
+
+    public ChangeHistoryDto getNameChange(UUID userId, UUID versionId) {
+        return changeHistoryTarget(userId, versionId)
+                .request()
+                .get(ChangeHistoryDto.class);
+    }
+
+    public List<ChangeHistoryDto> findAllNameChanges(UUID userId) {
+        return changeHistoryTarget(userId)
+                .request()
+                .get(new GenericType<>(){});
+    }
+
+
     private WebTarget phoneTarget(UUID userId, UUID phoneId){
         return phoneTarget(userId)
                 .path(phoneId.toString());
@@ -103,6 +123,16 @@ public class UserClient {
                 .path("api")
                 .path("v1")
                 .path("users");
+    }
+
+    private WebTarget changeHistoryTarget(UUID userId, UUID versionId) {
+        return userTarget(userId)
+                .path(versionId.toString());
+    }
+
+    private WebTarget changeHistoryTarget(UUID userId) {
+        return userTarget(userId)
+                .path("changehistory");
     }
 
     private WebTarget baseTarget() {

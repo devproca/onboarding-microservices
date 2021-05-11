@@ -26,10 +26,10 @@ public class PhoneService {
     @Autowired
     private static TwilioConfiguration twilioConfiguration;
 
-    @Autowired
-    public PhoneService(TwilioConfiguration twilioConfiguration){
-        this.twilioConfiguration = twilioConfiguration;
-    }
+//    @Autowired
+//    public PhoneService(TwilioConfiguration twilioConfiguration){
+//        this.twilioConfiguration = twilioConfiguration;
+//    }
 
     public PhoneDto create(PhoneDto dto) {
         phoneValidator.validateAndThrow(dto);
@@ -81,8 +81,9 @@ public class PhoneService {
         Phone to = new Phone();
         to.setPhoneNumber(phoneNumber);
         String body = "verify";
-//        MessageCreator creator = Message.creator(to, from, body);
+//        MessageCreator creator = Message.creator(to, from, body).create();
 //        creator.create();
+
     }
 
     public static String createVerificationKey() {
