@@ -84,17 +84,6 @@ public class UserClient {
                 .delete(Void.class);
     }
 
-    public NameChangeDto updateName(NameChangeDto dto) {
-        UserDto userDto = get(dto.getUserId());
-        userDto.setUsername(dto.getUpdatedUsername());
-        userDto.setFirstName(dto.getUpdatedFirstName());
-        userDto.setLastName(dto.getUpdatedLastName());
-        userDto = update(userDto);
-        return nameChangeTarget(dto.getUserId())
-                .request()
-                .post(Entity.json(dto), NameChangeDto.class);
-    }
-
     public NameChangeDto getNameChange(UUID userId, UUID nameChangeId) {
         return nameChangeTarget(userId, nameChangeId)
                 .request()

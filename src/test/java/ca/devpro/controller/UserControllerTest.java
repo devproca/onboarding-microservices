@@ -75,6 +75,7 @@ public class UserControllerTest {
         userClient.delete(createdDto.getUserId());
         assertTrue(userClient.findAll().isEmpty());
     }
+    
 
     private UserDto getValidUser() {
         return new UserDto()
