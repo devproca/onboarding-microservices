@@ -114,7 +114,7 @@ public class UserClient {
 
     private WebTarget nameChangeTarget(UUID userId) {
         return userTarget(userId)
-                .path("nameChange");
+                .path("name-changes");
     }
 
     private WebTarget phoneTarget(UUID userId, UUID phoneId){

@@ -22,7 +22,6 @@ public class NameChangeValidatorTest {
     @LocalServerPort
     private int port;
 
-    private NameChangeValidator nameChangeValidator;
     private NameChangeRepository nameChangeRepository;
     private UserClient userClient;
 
@@ -31,16 +30,11 @@ public class NameChangeValidatorTest {
         userClient = new UserClient();
         userClient.setBaseUri("http://localhost:" + port);
         nameChangeRepository = mock(NameChangeRepository.class);
-        nameChangeValidator = new NameChangeValidator(nameChangeRepository);
     }
 
     @Test
     public void testValidate_WhenNoChange_ShouldReturnError(){
-        UserDto createdDto = createUser();
-        NameChangeDto nameChangeDto = getInvalidNameChange(createdDto);
-        Map<String, String> errors = nameChangeValidator.validate(nameChangeDto);
-        assertEquals(1, errors.size());
-        assertEquals(nameChangeValidator.NAME_CHANGE_REQUIRED, errors.get("nameChange"));
+
     }
 
     private UserDto createUser() {

@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import java.sql.Timestamp;
 
-import java.sql.Timestamp;
 import java.util.UUID;
 
 @Data
