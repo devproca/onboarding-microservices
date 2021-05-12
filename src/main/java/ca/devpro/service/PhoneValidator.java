@@ -44,7 +44,7 @@ public class PhoneValidator {
             errors.put("phoneNumber", PHONENUMBER_REQUIRED);
         } else if(isCreate(dto) && phoneRepository.existsByPhoneNumberIgnoreCase(dto.getPhoneNumber())) {
             errors.put("phoneNumber", PHONENUMBER_TAKEN);
-        } else if(dto.getPhoneNumber().length() != 7) {
+        } else if(dto.getPhoneNumber().length() != 10) {
             errors.put("phoneNumber", PHONENUMBER_LENGTH_INVALID);
         }
     }

@@ -1,6 +1,7 @@
 package ca.devpro.controller;
 
 import ca.devpro.api.PhoneDto;
+import ca.devpro.api.PhoneVerificationDto;
 import ca.devpro.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,5 +43,15 @@ public class PhoneController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("phoneId") UUID phoneId) {
         phoneService.delete(phoneId);
+    }
+
+    @PostMapping("/{phoneId}/initiateVerification")
+    public void initiateVerification(@PathVariable("phoneId") UUID phoneId) {
+        phoneService.initiateVerification(phoneId);
+    }
+
+    @PostMapping("/{phoneId}/completeVerification")
+    public void completeVerification(@PathVariable("phoneId") UUID phoneId, @RequestBody PhoneVerificationDto dto) {
+        phoneService.completeVerification(dto.getCode(), phoneId);
     }
 }

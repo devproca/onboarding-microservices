@@ -36,10 +36,17 @@ public class Phone {
     @Column(name = "phone_type")
     private String phoneType;
 
+    @Column(name = "is_verified")
+    private Boolean isVerified;
+
+    @Column(name = "verification_key")
+    private String verificationKey;
+
     public static Phone newInstance(UUID userId) {
         Phone phone = new Phone();
         phone.phoneId = UUID.randomUUID();
         phone.userId = userId;
+        phone.isVerified = false;
         return phone;
     }
 }
