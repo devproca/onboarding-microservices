@@ -8,6 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface ChangeHistoryRepository extends JpaRepository<ChangeHistory, UUID> {
-    boolean existsByUpdatedUserNameIgnoreCase(String updatedUsername);
 
 }

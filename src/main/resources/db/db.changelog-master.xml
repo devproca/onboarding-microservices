@@ -17,7 +17,6 @@
             <column name="last_name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-
         </createTable>
     </changeSet>
 
@@ -26,7 +25,7 @@
             <column name="phone_id" type="varchar(36)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="phonenumber" type="varchar(50)">
+            <column name="phone_number" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="usr_id" type="varchar(36)">
@@ -38,12 +37,49 @@
         </createTable>
     </changeSet>
 
-<!--    <changeSet id="create-ChangeHistory-table" author="essama">-->
-<!--        <createTable tableName="changehistory">-->
+    <changeSet author="ali" id="add-verification-feature">
+        <addColumn tableName="phone" >
+            <column name="is_verified" type="boolean">
+            </column>
+            <column name="verification_key" type="varchar(6)">
+            </column>
+        </addColumn>
+    </changeSet>
 
-<!--        </createTable>-->
-<!--    </changeSet>-->
+    <changeSet author="ali" id="update-existing-verified-status">
+        <sql>
+            update phone set is_verified = false;
+        </sql>
+    </changeSet>
 
+    <changeSet id="create-changehistory-table" author="essama">
+        <createTable tableName="changehistory">
+            <column name="usr_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="previous_firstname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_firstname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="previous_lastname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_lastname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="previous_username" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_username" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 
 
 </databaseChangeLog>

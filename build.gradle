@@ -23,12 +23,12 @@ repositories {
 }
 
 dependencies {
-    implementation group: "com.twilio.sdk", name: "twilio", version: "8.11.0"
     compile "org.springframework.boot:spring-boot-configuration-processor"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.apache.commons:commons-lang3:3.10'
+    implementation 'com.twilio.sdk:twilio:8.11.0'
 
     implementation 'org.glassfish.jersey.core:jersey-client:2.27'
     implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.27'

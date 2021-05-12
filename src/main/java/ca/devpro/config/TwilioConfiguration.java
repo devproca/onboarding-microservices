@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("twilio")
 @Getter
 @Setter
-@NoArgsConstructor
-@Accessors(chain = true)
 public class TwilioConfiguration {
     private String accountSid;
     private String authToken;

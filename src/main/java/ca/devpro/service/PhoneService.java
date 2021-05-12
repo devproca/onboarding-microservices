@@ -2,15 +2,14 @@ package ca.devpro.service;
 
 import ca.devpro.api.PhoneDto;
 import ca.devpro.assembler.PhoneAssembler;
-import ca.devpro.config.TwilioConfiguration;
 import ca.devpro.entity.Phone;
 import ca.devpro.exception.NotFoundException;
+import ca.devpro.exception.ValidationException;
 import ca.devpro.repository.PhoneRepository;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.rest.api.v2010.account.MessageCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -26,12 +25,7 @@ public class PhoneService {
     @Autowired
     private PhoneValidator phoneValidator;
     @Autowired
-    private static TwilioConfiguration twilioConfiguration;
-
-    @Autowired
-    public PhoneService(TwilioConfiguration twilioConfiguration){
-        this.twilioConfiguration = twilioConfiguration;
-    }
+    private SmsService smsService;
 
     public PhoneDto create(PhoneDto dto) {
         phoneValidator.validateAndThrow(dto);
@@ -69,42 +63,29 @@ public class PhoneService {
     }
 
     public void initiateVerification(UUID phoneId) {
-        Phone phone = phoneRepository.findById(phoneId).get();
+        Phone phone = phoneRepository.findById(phoneId).orElseThrow(NotFoundException::new);
         String verificationKey = createVerificationKey();
 
         phone.setVerificationKey(verificationKey);
         phoneRepository.save(phone);
-        initiateVerification(phone.getPhoneNumber());
+        smsService.sendSmsMessage(phone.getPhoneNumber(), verificationKey);
     }
 
-    public static void initiateVerification(String phoneNumber) {
-        Phone from = new Phone();
-        from.setPhoneNumber(twilioConfiguration.getTwilioNumber());
-        Phone to = new Phone();
-        to.setPhoneNumber(phoneNumber);
-        String body = "Hi";
-        MessageCreator creator = Message.creator(to,
-                from,
-                body);
-        creator.create();
+    public void completeVerification(String verificationKey, UUID phoneId) {
+        Phone phone = phoneRepository.findById(phoneId).orElseThrow(NotFoundException::new);
+        if (phone.getVerificationKey().equals(verificationKey)){
+            phone.setIsVerified(true);
+            phoneRepository.save(phone);
+        } else {
+            throw new ValidationException(Collections.singletonMap("message", "you got the wrong code!"));
+        }
     }
 
-    public static String createVerificationKey() {
+    private String createVerificationKey() {
         Random rnd = new Random();
         int key = rnd.nextInt(999999);
         return String.format("%06d", key);
     }
-
-    public void completeVerification(String verificationKey,  UUID phoneId) {
-        Phone phone = phoneRepository.findById(phoneId).get();
-        if (phone.getVerificationKey().equals(verificationKey)){
-            phone.setIsVerified(true);
-        }
-        phoneRepository.save(phone);
-    }
-
-
-
 }
 
 

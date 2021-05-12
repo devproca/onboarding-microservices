@@ -1,6 +1,7 @@
 package ca.devpro.controller;
 
 import ca.devpro.api.PhoneDto;
+import ca.devpro.api.PhoneVerificationDto;
 import ca.devpro.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,9 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/user/{userId}/phones")
+@RequestMapping("/api/v1/users/{userId}/phones")
 public class PhoneController {
-
 
     @Autowired
     private PhoneService phoneService;
@@ -20,7 +20,6 @@ public class PhoneController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PhoneDto create(@RequestBody PhoneDto dto) {
-
         return phoneService.create(dto);
     }
 
@@ -52,10 +51,11 @@ public class PhoneController {
     }
 
     @PostMapping("/{phoneId}/completeVerification")
-    public void completeVerification(@PathVariable("verificationKey") String verificationKey, @PathVariable("phoneId") UUID phoneId) {
-        phoneService.completeVerification(verificationKey, phoneId);
+    public void completeVerification(@PathVariable("phoneId") UUID phoneId, @RequestBody PhoneVerificationDto dto) {
+        phoneService.completeVerification(dto.getCode(), phoneId);
     }
 
 
 
+    //264517
 }
