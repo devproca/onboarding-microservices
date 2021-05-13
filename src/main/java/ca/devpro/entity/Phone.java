@@ -31,22 +31,23 @@ public class Phone {
     @Setter(AccessLevel.NONE)
     private UUID userId;
 
-    @Column(name = "phonenumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "phoneType")
+    @Column(name = "phone_type")
     private String phoneType;
 
-    @Column(name = "isVerified")
+    @Column(name = "is_verified")
     private Boolean isVerified;
 
-    @Column(name = "verificationKey")
+    @Column(name = "verification_key")
     private String verificationKey;
 
     public static Phone newInstance(UUID userId) {
         Phone phone = new Phone();
         phone.phoneId = UUID.randomUUID();
         phone.userId = userId;
+        phone.isVerified = false;
         return phone;
     }
 

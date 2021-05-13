@@ -15,14 +15,16 @@ public class UserValidatorTest {
     private UserValidator userValidator;
     private UserRepository userRepository;
 
-    @BeforeEach
+
+
+
 //    public void init() {
 //        userRepository = mock(UserRepository.class);
 //        when(userRepository.existsByUsernameIgnoreCase(anyString())).thenReturn(false);
 //        userValidator = new UserValidator(userRepository);
 //    }
 
-
+    @BeforeEach
     public void init() {
         userRepository = mock(UserRepository.class);
         when(userRepository.existsByUsernameIgnoreCase(anyString())).thenAnswer(invocation -> {

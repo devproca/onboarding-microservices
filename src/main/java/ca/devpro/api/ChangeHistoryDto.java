@@ -3,6 +3,7 @@ package ca.devpro.api;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Data
@@ -16,4 +17,5 @@ public class ChangeHistoryDto {
     private String updatedFirstName;
     private String previousLastName;
     private String updatedLastName;
+    private Timestamp timeStamp;
 }

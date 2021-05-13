@@ -37,11 +37,15 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", orphanRemoval = true)
     private List<Phone> phones = new ArrayList<>();
 
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", orphanRemoval = true)
+//    private List<ChangeHistory> changeHistory = new ArrayList<>();
+
     public static User newInstance(String username) {
         User user = new User();
         user.userId = UUID.randomUUID();
         user.username = username;
-        user.phones = new ArrayList<>();
+//        user.phones = new ArrayList<>();
+//        user.changeHistory = new ArrayList<>();
         return user;
     }
 

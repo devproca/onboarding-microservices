@@ -18,15 +18,36 @@ public class ChangeHistoryService {
     private ChangeHistoryAssembler changeHistoryAssembler;
     @Autowired
     private ChangeHistoryRepository changeHistoryRepository;
-    @Autowired
-    private ChangeHistoryValidator changeHistoryValidator;
+//    @Autowired
+//    private ChangeHistoryValidator changeHistoryValidator;
 
-    public ChangeHistoryDto create(ChangeHistoryDto dto) {
-        changeHistoryValidator.validateAndThrow(dto);
+    public void update(ChangeHistoryDto dto) {
+        if (!isAnyInformationChanged(dto)) {
+            return;
+        }
         ChangeHistory entity = changeHistoryAssembler.disassemble(dto);
         changeHistoryRepository.save(entity);
-        return changeHistoryAssembler.assemble(entity);
     }
+
+    private boolean isAnyInformationChanged(ChangeHistoryDto dto) {
+        return isUsernameChanged(dto) ||
+                isFirstNameChanged(dto) ||
+                isLastNameChanged(dto);
+    }
+
+    private boolean isUsernameChanged(ChangeHistoryDto dto) {
+        return !dto.getPreviousUsername().equals(dto.getUpdatedUsername());
+    }
+
+    private boolean isFirstNameChanged(ChangeHistoryDto dto) {
+        return !dto.getPreviousFirstName().equals(dto.getUpdatedFirstName());
+    }
+
+    private boolean isLastNameChanged(ChangeHistoryDto dto) {
+        return !dto.getPreviousLastName().equals(dto.getUpdatedLastName());
+    }
+
+
     public List<ChangeHistoryDto> findAll() {
         return changeHistoryRepository.findAll()
                 .stream()

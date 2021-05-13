@@ -84,19 +84,15 @@ public class UserClient {
                 .delete(Void.class);
     }
 
-    public ChangeHistoryDto createChangeHistory(ChangeHistoryDto dto) {
-        return changeHistoryTarget(dto.getUserId())
-                .request()
-                .post(Entity.json(dto), ChangeHistoryDto.class);
-    }
 
-    public ChangeHistoryDto getNameChange(UUID userId, UUID versionId) {
+    public ChangeHistoryDto getChangeHistory(UUID userId, UUID versionId) {
         return changeHistoryTarget(userId, versionId)
                 .request()
                 .get(ChangeHistoryDto.class);
     }
 
-    public List<ChangeHistoryDto> findAllNameChanges(UUID userId) {
+
+    public List<ChangeHistoryDto> findAllChangeHistory(UUID userId) {
         return changeHistoryTarget(userId)
                 .request()
                 .get(new GenericType<>(){});
@@ -132,9 +128,8 @@ public class UserClient {
 
     private WebTarget changeHistoryTarget(UUID userId) {
         return userTarget(userId)
-                .path("changehistory");
+                .path("changes-history");
     }
-
     private WebTarget baseTarget() {
         return client.target(baseUri);
     }

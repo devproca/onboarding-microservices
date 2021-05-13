@@ -17,7 +17,6 @@
             <column name="last_name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-
         </createTable>
     </changeSet>
 
@@ -26,7 +25,7 @@
             <column name="phone_id" type="varchar(36)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="phonenumber" type="varchar(50)">
+            <column name="phone_number" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="usr_id" type="varchar(36)">
@@ -36,12 +35,25 @@
                 <constraints nullable="false"/>
             </column>
             <column name="isverified" type="boolean">
-                <constraints nullable="false"/>
             </column>
-            <column name="verificationkey" type="varchar(6)">
-                <constraints nullable="false"/>
+            <column name="verification_key" type="varchar(6)">
+
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet author="ali" id="add-verification-feature">
+        <addColumn tableName="phone" >
+            <column name="is_verified" type="boolean">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="ali" id="update-existing-verified-status">
+        <sql>
+            update phone set is_verified = false;
+        </sql>
+
     </changeSet>
 
     <changeSet id="create-changehistory-table" author="essama">
@@ -70,9 +82,11 @@
             <column name="updated_username" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
+            <column name="time_stamp" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
-
 
 
 </databaseChangeLog>

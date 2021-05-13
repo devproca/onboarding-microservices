@@ -12,8 +12,8 @@ public class PhoneAssembler {
                 .setPhoneId(entity.getPhoneId())
                 .setUserId(entity.getUserId())
                 .setPhoneNumber(entity.getPhoneNumber())
-                .setPhoneType(entity.getPhoneType());
-
+                .setPhoneType(entity.getPhoneType())
+                .setIsVerified(entity.getIsVerified());
     }
 
     public Phone disassemble(PhoneDto dto) {
@@ -21,10 +21,16 @@ public class PhoneAssembler {
         return disassembleInto(dto, entity);
     }
 
+//    public Phone disassembleInto(PhoneDto dto, Phone entity) {
+//        return entity.setPhoneNumber(dto.getPhoneNumber())
+//                .setPhoneType(dto.getPhoneType());
+//    }
+
     public Phone disassembleInto(PhoneDto dto, Phone entity) {
         return entity.setPhoneNumber(dto.getPhoneNumber())
-                .setPhoneType(dto.getPhoneType());
-
+                .setPhoneType(dto.getPhoneType())
+                .setIsVerified(dto.getIsVerified())
+                .setVerificationKey(dto.getVerificationKey());
     }
 
 

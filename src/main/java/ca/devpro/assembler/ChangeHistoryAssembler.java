@@ -17,7 +17,8 @@ public class ChangeHistoryAssembler {
                 .setPreviousUsername(entity.getPreviousUsername())
                 .setUpdatedFirstName(entity.getUpdatedFirstName())
                 .setUpdatedLastName(entity.getUpdatedLastName())
-                .setUpdatedUsername(entity.getUpdatedUsername());
+                .setUpdatedUsername(entity.getUpdatedUsername())
+                .setTimeStamp(entity.getTimeStamp());
     }
 
     public ChangeHistory disassemble(ChangeHistoryDto dto) {

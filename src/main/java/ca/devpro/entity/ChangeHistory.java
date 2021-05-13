@@ -11,6 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -49,6 +51,11 @@ public class ChangeHistory {
     @Column(name = "updated_username")
     private String updatedUsername;
 
+    @Column(name = "time_stamp")
+    @Type(type = "timestamp")
+    @Setter(AccessLevel.NONE)
+    private Timestamp timeStamp;
+
     public static ChangeHistory newInstance(ChangeHistoryDto dto) {
         ChangeHistory changeHistory = new ChangeHistory();
 
@@ -60,6 +67,7 @@ public class ChangeHistory {
         changeHistory.updatedUsername = dto.getUpdatedUsername();
         changeHistory.updatedFirstName = dto.getUpdatedFirstName();
         changeHistory.updatedLastName = dto.getUpdatedLastName();
+        changeHistory.timeStamp = Timestamp.from(Instant.now());
 
         return changeHistory;
     }

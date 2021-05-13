@@ -1,22 +1,31 @@
 package ca.devpro.controller;
 
+import ca.devpro.api.ChangeHistoryDto;
 import ca.devpro.api.UserDto;
 import ca.devpro.client.UserClient;
+import ca.devpro.repository.ChangeHistoryRepository;
+import ca.devpro.service.SmsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
 
 import javax.ws.rs.BadRequestException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = "classpath:teardown.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class UserControllerTest {
 
     private UserClient userClient;
+    private ChangeHistoryRepository changeHistoryRepository;
+
+    @MockBean
+    private SmsService smsService;
 
     @LocalServerPort
     private int port;
@@ -25,6 +34,7 @@ public class UserControllerTest {
     public void init() {
         userClient = new UserClient();
         userClient.setBaseUri("http://localhost:" + port);
+        changeHistoryRepository = mock(ChangeHistoryRepository.class);
     }
 
     @Test
@@ -81,5 +91,18 @@ public class UserControllerTest {
                 .setUsername("doddt")
                 .setFirstName("Tim")
                 .setLastName("Dodd");
+    }
+
+    private ChangeHistoryDto getValidChangeHistory(UserDto dto) {
+        ChangeHistoryDto changeHistoryDto = new ChangeHistoryDto();
+        changeHistoryDto.setUserId(dto.getUserId());
+        changeHistoryDto.setPreviousUsername(dto.getUsername());
+        changeHistoryDto.setUpdatedUsername(dto.getUsername());
+        changeHistoryDto.setPreviousFirstName(dto.getFirstName());
+        changeHistoryDto.setUpdatedFirstName(dto.getFirstName());
+        changeHistoryDto.setPreviousLastName(dto.getLastName());
+        changeHistoryDto.setUpdatedLastName(dto.getLastName());
+
+        return changeHistoryDto;
     }
 }
