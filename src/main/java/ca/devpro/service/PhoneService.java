@@ -39,8 +39,8 @@ public class PhoneService {
         return phoneAssembler.assemble(entity);
     }
 
-    public List<PhoneDto> findAllPhones() {
-        return phoneRepository.findAll()
+    public List<PhoneDto> findAllPhones(UUID userId) {
+        return phoneRepository.findAllPhonesByUserId(userId)
                 .stream()
                 .map(phoneAssembler::assemble)
                 .collect(Collectors.toList());

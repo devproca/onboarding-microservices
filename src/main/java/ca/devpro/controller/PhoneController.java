@@ -24,8 +24,8 @@ public class PhoneController {
     }
 
     @GetMapping()
-    public List<PhoneDto> findAllPhones() {
-        return phoneService.findAllPhones();
+    public List<PhoneDto> findAllPhones(@PathVariable("userId") UUID userId) {
+        return phoneService.findAllPhones(userId);
     }
 
     @GetMapping("/{phoneId}")

@@ -25,10 +25,10 @@
             <column name="phone_id" type="varchar(36)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="phone_number" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
             <column name="usr_id" type="varchar(36)">
+<!--                <constraints nullable="false"/>-->
+            </column>
+            <column name="phone_number" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="phone_type" type="varchar(50)">

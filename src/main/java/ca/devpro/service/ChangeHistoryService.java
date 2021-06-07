@@ -55,6 +55,7 @@ public class ChangeHistoryService {
                 .collect(Collectors.toList());
     }
 
+
     public ChangeHistoryDto get(UUID versionId) {
         return changeHistoryRepository.findById(versionId)
                 .map(changeHistoryAssembler::assemble)
