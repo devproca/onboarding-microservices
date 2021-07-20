@@ -9,7 +9,7 @@ import org.springframework.context.support.MessageSourceAccessor;
 @SpringBootApplication
 public class OnboardingMicroserviceApplication {
 
-    //finish unit tests for user validator and user controller
+    //finish unit tests for user validator and user controller - done
     //add validations for length of firstName, lastName, username fields - done
     //add unique username validation (userRepository.existsByUsername)  - done
     //add a phone subresource (liquibase, entity, assembler, controller, tests etc) (look up jpa OneToMany)
