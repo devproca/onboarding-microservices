@@ -60,6 +60,23 @@ public class UserValidatorTest {
     }
 
     @Test
+    public void testValidateFirstName_whenNull_shouldReturnError() {
+        Map<String, String> errors = userValidator.validate(getValidUser().setFirstName(null));
+
+        assertEquals(1, errors.size());
+        assertTrue(errors.containsKey("firstName"));
+        assertEquals(UserValidator.FIRST_NAME_REQUIRED, errors.get("firstName"));
+    }
+    @Test
+    public void testValidateLastName_whenBlank_shouldReturnError() {
+
+        Map<String, String> errors = userValidator.validate(getValidUser().setLastName(" "));
+
+        assertEquals(1, errors.size());
+        assertTrue(errors.containsKey("lastName"));
+        assertEquals(UserValidator.LAST_NAME_REQUIRED, errors.get("lastName"));
+    }
+    @Test
     public void testValidateLastName_whenNull_shouldReturnError() {
         Map<String, String> errors = userValidator.validate(getValidUser().setLastName(null));
 
