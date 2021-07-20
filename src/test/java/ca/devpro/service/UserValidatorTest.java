@@ -44,13 +44,14 @@ public class UserValidatorTest {
 
     @Test
     public void testValidateUsername_whenUsernameAvailable_shouldSucceed() {
-        Map<String, String> errors = userValidator.validate(getValidUser().setUsername("availableuser"));
+        Map<String, String> errors = userValidator.validate(getValidUser().setUsername("avail"));
 
         assertEquals(0, errors.size());
     }
 
     @Test
     public void testValidateFirstName_whenBlank_shouldReturnError() {
+
         Map<String, String> errors = userValidator.validate(getValidUser().setFirstName(" "));
 
         assertEquals(1, errors.size());
@@ -67,11 +68,33 @@ public class UserValidatorTest {
         assertEquals(UserValidator.LAST_NAME_REQUIRED, errors.get("lastName"));
     }
 
+    @Test
+    public void testValidateFirstName_MaxExceeded_shouldReturnError() {
+        Map<String, String> errors = userValidator.validate(getValidUser().setFirstName("123456"));
+
+        assertEquals(1, errors.size());
+        assertTrue(errors.containsKey("firstName"));
+        assertEquals(UserValidator.FIRST_NAME_LENGTH_MAX, errors.get("firstName"));
+    }
+    @Test
+    public void testValidateLastName_MaxExceeded_shouldReturnError() {
+        Map<String, String> errors = userValidator.validate(getValidUser().setLastName("123456"));
+        assertEquals(1, errors.size());
+        assertTrue(errors.containsKey("lastName"));
+        assertEquals(UserValidator.LAST_NAME_LENGTH_MAX, errors.get("lastName"));
+    }
+    @Test
+    public void testValidateUserName_MaxExceeded_shouldReturnError() {
+        Map<String, String> errors = userValidator.validate(getValidUser().setUsername("123456"));
+        assertEquals(1, errors.size());
+        assertTrue(errors.containsKey("username"));
+        assertEquals(UserValidator.USERNAME_LENGTH_MAX, errors.get("username"));
+    }
     private UserDto getValidUser() {
         return new UserDto()
                 .setFirstName("test")
                 .setLastName("user")
-                .setUsername("testuser");
+                .setUsername("testu");
     }
 
 }

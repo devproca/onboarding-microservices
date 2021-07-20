@@ -18,8 +18,15 @@ public class UserValidator {
     public static final String USERNAME_REQUIRED = "USERNAME_REQUIRED";
     public static final String USERNAME_TAKEN = "USERNAME_TAKEN";
 
+    public static final String FIRST_NAME_LENGTH_MAX = "FIRST_NAME_LENGTH_MAX";
+    public static final String LAST_NAME_LENGTH_MAX = "LAST_NAME_LENGTH_MAX";
+    public static final String USERNAME_LENGTH_MAX = "USERNAME_LENGTH_MAX";
+
     private final UserRepository userRepository;
 
+    private final int firstNameMax = 5;
+    private final int lastNameMax = 5;
+    private final int userNameMax = 5;
     @Autowired
     public UserValidator(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -44,12 +51,16 @@ public class UserValidator {
     private void validateFirstName(Map<String, String> errors, UserDto dto) {
         if (StringUtils.isBlank(dto.getFirstName())) {
             errors.put("firstName", FIRST_NAME_REQUIRED);
+        } else if (dto.getFirstName().length() > firstNameMax){
+            errors.put("firstName", FIRST_NAME_LENGTH_MAX);
         }
     }
 
     private void validateLastName(Map<String, String> errors, UserDto dto) {
         if (StringUtils.isBlank(dto.getLastName())) {
             errors.put("lastName", LAST_NAME_REQUIRED);
+        } else if (dto.getLastName().length() > lastNameMax){
+            errors.put("lastName", LAST_NAME_LENGTH_MAX);
         }
     }
 
@@ -58,6 +69,8 @@ public class UserValidator {
             errors.put("username", USERNAME_REQUIRED);
         } else if(isCreate(dto) && userRepository.existsByUsernameIgnoreCase(dto.getUsername())) {
             errors.put("username", USERNAME_TAKEN);
+        } else if (dto.getUsername().length() > userNameMax){
+            errors.put("username", USERNAME_LENGTH_MAX);
         }
     }
 
