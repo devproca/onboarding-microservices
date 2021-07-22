@@ -7,10 +7,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,6 +35,9 @@ public class User {
     @Column(name = "username")
     @Setter(AccessLevel.NONE)
     private String username;
+
+    @OneToMany(targetEntity = Phone.class, cascade = CascadeType.ALL, mappedBy = "userId", orphanRemoval = true)
+    private List<Phone> phones = new ArrayList<>();
 
     public static User newInstance(String username) {
         User entity = new User();

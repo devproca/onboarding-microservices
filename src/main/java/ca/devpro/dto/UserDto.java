@@ -3,6 +3,7 @@ package ca.devpro.dto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -13,5 +14,5 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String username;
-
+    private List<PhoneDto> phones;
 }

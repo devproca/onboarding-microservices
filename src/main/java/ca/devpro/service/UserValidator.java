@@ -24,9 +24,9 @@ public class UserValidator {
 
     private final UserRepository userRepository;
 
-    private final int firstNameMax = 5;
-    private final int lastNameMax = 5;
-    private final int userNameMax = 5;
+    private final int firstNameMax = 20;
+    private final int lastNameMax = 20;
+    private final int userNameMax = 20;
     @Autowired
     public UserValidator(UserRepository userRepository) {
         this.userRepository = userRepository;

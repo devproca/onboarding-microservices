@@ -87,7 +87,7 @@ public class UserValidatorTest {
 
     @Test
     public void testValidateFirstName_MaxExceeded_shouldReturnError() {
-        Map<String, String> errors = userValidator.validate(getValidUser().setFirstName("123456"));
+        Map<String, String> errors = userValidator.validate(getValidUser().setFirstName("123456789012345678921"));
 
         assertEquals(1, errors.size());
         assertTrue(errors.containsKey("firstName"));
@@ -95,14 +95,14 @@ public class UserValidatorTest {
     }
     @Test
     public void testValidateLastName_MaxExceeded_shouldReturnError() {
-        Map<String, String> errors = userValidator.validate(getValidUser().setLastName("123456"));
+        Map<String, String> errors = userValidator.validate(getValidUser().setLastName("123456789012345678921"));
         assertEquals(1, errors.size());
         assertTrue(errors.containsKey("lastName"));
         assertEquals(UserValidator.LAST_NAME_LENGTH_MAX, errors.get("lastName"));
     }
     @Test
     public void testValidateUserName_MaxExceeded_shouldReturnError() {
-        Map<String, String> errors = userValidator.validate(getValidUser().setUsername("123456"));
+        Map<String, String> errors = userValidator.validate(getValidUser().setUsername("123456789012345678921"));
         assertEquals(1, errors.size());
         assertTrue(errors.containsKey("username"));
         assertEquals(UserValidator.USERNAME_LENGTH_MAX, errors.get("username"));
