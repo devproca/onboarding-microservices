@@ -10,7 +10,7 @@ import java.util.UUID;
 public class PhoneDto {
 
     private UUID phoneId;
-    private String userId;
+    private UUID userId;
     private String phoneNumber;
 
 }

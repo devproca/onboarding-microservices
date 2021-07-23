@@ -24,7 +24,7 @@ public class UserValidator {
 
     private final UserRepository userRepository;
 
-    private final int firstNameMax = 20;
+    private final int firstNameMax = 20; //FIXME screaming snake case and static
     private final int lastNameMax = 20;
     private final int userNameMax = 20;
     @Autowired

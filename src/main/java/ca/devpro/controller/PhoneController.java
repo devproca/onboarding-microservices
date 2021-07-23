@@ -11,31 +11,29 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users/{userId}/phones")
-
-
-
 public class PhoneController {
+
     @Autowired
     private PhoneService phoneService;
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-
     public PhoneDto create(@PathVariable("userId") UUID userId, @RequestBody() PhoneDto dto) {
-        String uid = userId.toString();
-        dto.setUserId(uid);
+        dto.setUserId(userId);
         return phoneService.create(dto);
     }
+
     @GetMapping()
-    public List<PhoneDto> findByUserId(@PathVariable("userId") String userId) {
-        String uid = userId.toString();
-        return phoneService.findByUserId(uid);
+    public List<PhoneDto> findByUserId(@PathVariable("userId") UUID userId) {
+        return phoneService.findByUserId(userId);
     }
+
     @PutMapping("/{phoneId}")
     public PhoneDto update(@PathVariable("phoneId") UUID phoneId, @RequestBody() PhoneDto dto) {
         dto.setPhoneId(phoneId);
         return phoneService.update(dto);
     }
+
     @DeleteMapping("/{phoneId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("phoneId") UUID phoneId) {

@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PhoneControllerTest {
+
     @LocalServerPort
     private int port;
 
@@ -26,10 +27,8 @@ public class PhoneControllerTest {
 
     @BeforeEach
     public void init() {
-
         userClient = new UserClient();
         userClient.setBaseUri("http://localhost:" + port);
-
 
         phoneClient = new PhoneClient();
         phoneClient.setBaseUri("http://localhost:" + port);
@@ -38,8 +37,7 @@ public class PhoneControllerTest {
     @Test
     public void testCreatePhone_whenInvalid_shouldReturnBadRequest() {
         PhoneDto dto = getValidPhone().setPhoneNumber(null);
-        UUID uuid = UUID.fromString( dto.getUserId());
-        assertThrows(BadRequestException.class, () ->  phoneClient.create(uuid, dto));
+        assertThrows(BadRequestException.class, () ->  phoneClient.create(dto.getUserId(), dto));
     }
 
     @Test
@@ -59,7 +57,7 @@ public class PhoneControllerTest {
     private PhoneDto getValidPhone() {
         return new PhoneDto()
                 //.setPhoneId(UUID.fromString("fe0aae1b-a86a-45a2-8104-9b9206ca3a47"))
-                .setUserId("fe0aae1b-a86a-45a2-8104-9b9206ca3a48")
+                .setUserId(UUID.fromString("fe0aae1b-a86a-45a2-8104-9b9206ca3a48"))
                 .setPhoneNumber("6472276653");
     }
 
@@ -69,6 +67,4 @@ public class PhoneControllerTest {
                 .setLastName("user")
                 .setUsername("testu");
     }
-
-
 }

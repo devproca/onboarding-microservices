@@ -21,28 +21,30 @@
 
     <changeSet id="usr-username-unique" author="doddt2">
         <addUniqueConstraint columnNames="username"
-                              constraintName="usr_c1"
-                              tableName="usr"/>
+                             constraintName="usr_c1"
+                             tableName="usr"/>
     </changeSet>
+
     <changeSet id="create-phone-table" author="aprietoa">
         <createTable tableName="phone">
             <column name="phone_id" type="varchar(36)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="usr_id" type="varchar(36)">
-
+                <constraints nullable="false"/>
             </column>
             <column name="phone_number" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="user-phone-foreignKey"  author="aprietoa"  >
-        <addForeignKeyConstraint  baseColumnNames="usr_id"
-                                  baseTableName="phone"
-                                  constraintName="fk_phone"
-                                  referencedColumnNames="usr_id"
-                                  referencedTableName="usr"
+
+    <changeSet id="user-phone-foreignKey" author="aprietoa">
+        <addForeignKeyConstraint baseColumnNames="usr_id"
+                                 baseTableName="phone"
+                                 constraintName="fk_phone"
+                                 referencedColumnNames="usr_id"
+                                 referencedTableName="usr"
         />
     </changeSet>
 </databaseChangeLog>

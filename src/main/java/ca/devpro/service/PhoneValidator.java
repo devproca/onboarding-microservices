@@ -14,14 +14,14 @@ import java.util.Map;
 @Component
 public class PhoneValidator {
 
+
     public static final String PHONE_NUMBER_REQUIRED = "PHONE_NUMBER_REQUIRED";
     public static final String PHONE_NUMBER_LENGTH_MAX = "PHONE_NUMBER_LENGTH_MAX";
-
     public static final String PHONE_NUMBER_TAKEN = "PHONE_NUMBER_TAKEN";
+    private static final int PHONE_NUMBER_MAX = 15;
 
 
     private final PhoneRepository phoneRepository;
-    private final int PhoneNumberMax = 15;
 
     @Autowired
     public PhoneValidator(PhoneRepository phoneRepository) {
@@ -35,6 +35,7 @@ public class PhoneValidator {
             throw new ValidationException(errors);
         }
     }
+
     public Map<String, String> validate(PhoneDto dto) {
         Map<String, String> errors = new LinkedHashMap<>();
         validatePhoneNumber(errors, dto);
@@ -44,7 +45,7 @@ public class PhoneValidator {
     private void validatePhoneNumber(Map<String, String> errors, PhoneDto dto) {
         if (StringUtils.isBlank(dto.getPhoneNumber())) {
             errors.put("phoneNumber", PHONE_NUMBER_REQUIRED);
-        } else if (dto.getPhoneNumber().length() > PhoneNumberMax){
+        } else if (dto.getPhoneNumber().length() > PHONE_NUMBER_MAX){
             errors.put("phoneNumber", PHONE_NUMBER_LENGTH_MAX);
         } else if(isCreate(dto) && phoneRepository.existsByPhoneNumberIgnoreCase(dto.getPhoneNumber())) {
             errors.put("phoneNumber", PHONE_NUMBER_TAKEN);

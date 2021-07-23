@@ -36,7 +36,7 @@ public class User {
     @Setter(AccessLevel.NONE)
     private String username;
 
-    @OneToMany(targetEntity = Phone.class, cascade = CascadeType.ALL, mappedBy = "userId", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", orphanRemoval = true)
     private List<Phone> phones = new ArrayList<>();
 
     public static User newInstance(String username) {

@@ -28,8 +28,8 @@ public class PhoneService {
         return phoneAssembler.assemble(newPhone);
     }
 
-    public List<PhoneDto> findByUserId(String uid) {
-        return phoneRepository.findByUserId(uid)
+    public List<PhoneDto> findByUserId(UUID userId) {
+        return phoneRepository.findByUserId(userId)
                 .stream()
                 .map(phoneAssembler::assemble)
                 .collect(Collectors.toList());

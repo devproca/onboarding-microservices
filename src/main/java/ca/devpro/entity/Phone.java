@@ -25,12 +25,13 @@ public class Phone {
     private UUID phoneId;
 
     @Column(name = "usr_id")
-    private String userId;
+    @Type(type = "uuid-char")
+    private UUID userId;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public static Phone newInstance(String userId) {
+    public static Phone newInstance(UUID userId) {
         Phone phone = new Phone();
         phone.phoneId = UUID.randomUUID();
         phone.userId = userId;
