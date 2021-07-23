@@ -17,21 +17,19 @@ public class UserValidator {
     public static final String LAST_NAME_REQUIRED = "LAST_NAME_REQUIRED";
     public static final String USERNAME_REQUIRED = "USERNAME_REQUIRED";
     public static final String USERNAME_TAKEN = "USERNAME_TAKEN";
-
     public static final String FIRST_NAME_LENGTH_MAX = "FIRST_NAME_LENGTH_MAX";
     public static final String LAST_NAME_LENGTH_MAX = "LAST_NAME_LENGTH_MAX";
     public static final String USERNAME_LENGTH_MAX = "USERNAME_LENGTH_MAX";
+    private static final int FIRST_NAME_MAX = 20;
+    private static final int LAST_NAME_MAX = 20;
+    private static final int USER_NAME_MAX = 20;
 
     private final UserRepository userRepository;
 
-    private final int firstNameMax = 20; //FIXME screaming snake case and static
-    private final int lastNameMax = 20;
-    private final int userNameMax = 20;
     @Autowired
     public UserValidator(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
 
     public void validateAndThrow(UserDto dto) {
         Map<String, String> errors = validate(dto);
@@ -51,7 +49,7 @@ public class UserValidator {
     private void validateFirstName(Map<String, String> errors, UserDto dto) {
         if (StringUtils.isBlank(dto.getFirstName())) {
             errors.put("firstName", FIRST_NAME_REQUIRED);
-        } else if (dto.getFirstName().length() > firstNameMax){
+        } else if (dto.getFirstName().length() > FIRST_NAME_MAX){
             errors.put("firstName", FIRST_NAME_LENGTH_MAX);
         }
     }
@@ -59,7 +57,7 @@ public class UserValidator {
     private void validateLastName(Map<String, String> errors, UserDto dto) {
         if (StringUtils.isBlank(dto.getLastName())) {
             errors.put("lastName", LAST_NAME_REQUIRED);
-        } else if (dto.getLastName().length() > lastNameMax){
+        } else if (dto.getLastName().length() > LAST_NAME_MAX){
             errors.put("lastName", LAST_NAME_LENGTH_MAX);
         }
     }
@@ -69,7 +67,7 @@ public class UserValidator {
             errors.put("username", USERNAME_REQUIRED);
         } else if(isCreate(dto) && userRepository.existsByUsernameIgnoreCase(dto.getUsername())) {
             errors.put("username", USERNAME_TAKEN);
-        } else if (dto.getUsername().length() > userNameMax){
+        } else if (dto.getUsername().length() > USER_NAME_MAX){
             errors.put("username", USERNAME_LENGTH_MAX);
         }
     }

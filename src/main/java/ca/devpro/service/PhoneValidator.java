@@ -1,7 +1,6 @@
 package ca.devpro.service;
 
 import ca.devpro.dto.PhoneDto;
-import ca.devpro.dto.UserDto;
 import ca.devpro.exception.ValidationException;
 import ca.devpro.repository.PhoneRepository;
 import org.apache.commons.lang3.StringUtils;
