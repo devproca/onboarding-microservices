@@ -47,4 +47,24 @@
                                  referencedTableName="usr"
         />
     </changeSet>
+
+    <changeSet id="create-change-name-table" author="aprietoa">
+        <createTable tableName="changename">
+            <column name="changename_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="usr_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

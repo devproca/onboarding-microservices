@@ -17,7 +17,7 @@ public class OnboardingMicroserviceApplication {
  //Additional tasks
 //
 //    create a table and entity to track the history of name changes. When an update is called on the user resource, and either the first name or last name is changed, write a row to the user_name_change_history table. Also create a rest endpoint (and any additional classes) to GET the name change hsitory for a user.
-//
+//      - in process
 //            2.
 //    create a phone number verification flow. create 2 additional rest endpoints as "actions" on phone
 //

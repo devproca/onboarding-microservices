@@ -1,6 +1,7 @@
 package ca.devpro.service;
 
 import ca.devpro.assembler.UserAssembler;
+import ca.devpro.dto.ChangenameDto;
 import ca.devpro.dto.UserDto;
 import ca.devpro.entity.User;
 import ca.devpro.exception.NotFoundExpection;
@@ -8,7 +9,9 @@ import ca.devpro.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -22,6 +25,8 @@ public class UserService {
     private UserAssembler userAssembler;
     @Autowired
     private UserValidator userValidator;
+    @Autowired
+    private ChangenameService changenameService;
 
     public List<UserDto> findAll() {
         return userRepository.findAll()
@@ -44,16 +49,61 @@ public class UserService {
                 .map(entity -> userAssembler.assemble(entity))
                 .orElseThrow(() -> new NotFoundExpection());
     }
-
+// Original
+//    public UserDto update(UserDto dto) {
+//        userValidator.validateAndThrow(dto);
+//        return userRepository.findById(dto.getUserId())
+//                .map(entity -> userAssembler.disassembleInto(dto, entity))
+//                .map(userRepository::save)
+//                .map(userAssembler::assemble)
+//                .orElseThrow(NotFoundExpection::new);
+//    }
     public UserDto update(UserDto dto) {
         userValidator.validateAndThrow(dto);
         return userRepository.findById(dto.getUserId())
+                .stream()
+                .peek(entity -> {
+                    Date date = new Date();
+                    ChangenameDto changeName = new ChangenameDto()
+                            .setUserId(entity.getUserId())
+                            .setFirstName(entity.getFirstName())
+                            .setLastName(entity.getLastName())
+                            .setCreatedDate(new Timestamp(date.getTime()));
+                    changenameService.createChangename(changeName);
+                })
                 .map(entity -> userAssembler.disassembleInto(dto, entity))
                 .map(userRepository::save)
                 .map(userAssembler::assemble)
+                // not sure if I need this
+                .findAny()
                 .orElseThrow(NotFoundExpection::new);
     }
 
+
+    /*
+        public UserDto update(UserDto dto) {
+        userValidator.validateAndThrow(dto);
+        return userRepository.findById(dto.getUserId())
+                .stream()
+                .peek(entity -> {
+                    NameChangeDto nameChange = new NameChangeDto()
+                            .setUserId(entity.getUserId())
+                            .setPreviousFirstName(entity.getFirstName())
+                            .setUpdatedFirstName(dto.getFirstName())
+                            .setPreviousLastName(entity.getLastName())
+                            .setUpdatedLastName(dto.getLastName())
+                            .setPreviousUsername(entity.getUsername())
+                            .setUpdatedUsername(dto.getUsername());
+
+                    nameChangeService.updateName(nameChange);
+                })
+                .map(entity -> userAssembler.disassembleInto(dto, entity))
+                .map(userRepository::save)
+                .map(userAssembler::assemble)
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException());
+    }
+     */
     public void delete(UUID userId) {
         userRepository.findById(userId).ifPresentOrElse(userRepository::delete, () -> {
             throw new NotFoundExpection();
