@@ -23,6 +23,7 @@ public class UserClient {
     }
 
     public UserDto create(UserDto dto) {
+        System.out.println("Galing e no");
         return userTarget()
                 .request()
                 .post(Entity.json(dto), UserDto.class);

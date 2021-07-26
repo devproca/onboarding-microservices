@@ -49,61 +49,31 @@ public class UserService {
                 .map(entity -> userAssembler.assemble(entity))
                 .orElseThrow(() -> new NotFoundExpection());
     }
-// Original
-//    public UserDto update(UserDto dto) {
-//        userValidator.validateAndThrow(dto);
-//        return userRepository.findById(dto.getUserId())
-//                .map(entity -> userAssembler.disassembleInto(dto, entity))
-//                .map(userRepository::save)
-//                .map(userAssembler::assemble)
-//                .orElseThrow(NotFoundExpection::new);
-//    }
+
     public UserDto update(UserDto dto) {
         userValidator.validateAndThrow(dto);
         return userRepository.findById(dto.getUserId())
                 .stream()
                 .peek(entity -> {
+                    // entity - old, dto - new
+                    System.out.println(entity.getFirstName() + " : " + entity.getLastName());
+                    System.out.println(dto);
                     Date date = new Date();
                     ChangenameDto changeName = new ChangenameDto()
-                            .setUserId(entity.getUserId())
-                            .setFirstName(entity.getFirstName())
-                            .setLastName(entity.getLastName())
+                            .setUserId(dto.getUserId())
+                            .setFirstName(dto.getFirstName())
+                            .setLastName(dto.getLastName())
                             .setCreatedDate(new Timestamp(date.getTime()));
-                    changenameService.createChangename(changeName);
+                    changenameService.createChangename(changeName, entity.getFirstName(), entity.getLastName());
                 })
                 .map(entity -> userAssembler.disassembleInto(dto, entity))
                 .map(userRepository::save)
                 .map(userAssembler::assemble)
                 // not sure if I need this
-                .findAny()
+                .findFirst()
                 .orElseThrow(NotFoundExpection::new);
     }
 
-
-    /*
-        public UserDto update(UserDto dto) {
-        userValidator.validateAndThrow(dto);
-        return userRepository.findById(dto.getUserId())
-                .stream()
-                .peek(entity -> {
-                    NameChangeDto nameChange = new NameChangeDto()
-                            .setUserId(entity.getUserId())
-                            .setPreviousFirstName(entity.getFirstName())
-                            .setUpdatedFirstName(dto.getFirstName())
-                            .setPreviousLastName(entity.getLastName())
-                            .setUpdatedLastName(dto.getLastName())
-                            .setPreviousUsername(entity.getUsername())
-                            .setUpdatedUsername(dto.getUsername());
-
-                    nameChangeService.updateName(nameChange);
-                })
-                .map(entity -> userAssembler.disassembleInto(dto, entity))
-                .map(userRepository::save)
-                .map(userAssembler::assemble)
-                .findFirst()
-                .orElseThrow(() -> new NotFoundException());
-    }
-     */
     public void delete(UUID userId) {
         userRepository.findById(userId).ifPresentOrElse(userRepository::delete, () -> {
             throw new NotFoundExpection();

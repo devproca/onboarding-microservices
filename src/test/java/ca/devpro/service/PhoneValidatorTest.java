@@ -2,13 +2,11 @@ package ca.devpro.service;
 
 import ca.devpro.dto.PhoneDto;
 import ca.devpro.repository.PhoneRepository;
-import ca.devpro.repository.UserRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
