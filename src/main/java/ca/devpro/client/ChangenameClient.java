@@ -30,7 +30,6 @@ public class ChangenameClient {
                 .path("api")
                 .path("v1")
                 .path("users");
-                //.path(userId.toString());
     }
 
     private WebTarget baseTarget() {
