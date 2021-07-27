@@ -39,8 +39,11 @@ public class TwilioSmsSender implements SmsSender {
     }
 
     private boolean isPhoneNumberValid(String phoneNumber){
-        // Implement this on the validator TODO
-        return true;
+        if(phoneNumber.length() > 12){
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
