@@ -67,4 +67,15 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet author="liquibase-docs" id="addColumn-phone">
+        <addColumn tableName="phone" >
+            <column name="code_verifier"
+                    type="varchar(6)"/>
+            <column name="is_verified"
+                    type="boolean" >
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

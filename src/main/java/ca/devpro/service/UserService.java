@@ -69,7 +69,6 @@ public class UserService {
                 .map(entity -> userAssembler.disassembleInto(dto, entity))
                 .map(userRepository::save)
                 .map(userAssembler::assemble)
-                // not sure if I need this
                 .findFirst()
                 .orElseThrow(NotFoundExpection::new);
     }

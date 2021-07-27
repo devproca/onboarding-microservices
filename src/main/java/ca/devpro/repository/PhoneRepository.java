@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface PhoneRepository extends JpaRepository<Phone, UUID> {
     List<Phone> findByUserId(UUID userId);
-
+    Phone findByUserIdAndPhoneId(UUID userId, UUID phoneId);
     boolean existsByPhoneNumberIgnoreCase(String phoneNumber);
 }
 

@@ -1,7 +1,9 @@
 package ca.devpro.service;
 
 import ca.devpro.assembler.PhoneAssembler;
+import ca.devpro.dto.CompleteVerificationDto;
 import ca.devpro.dto.PhoneDto;
+import ca.devpro.dto.SmsRequestDto;
 import ca.devpro.entity.Phone;
 import ca.devpro.repository.PhoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class PhoneService {
     private PhoneRepository phoneRepository;
     @Autowired
     private PhoneValidator phoneValidator;
+
+    @Autowired
+    private SmsService smsService;
 
     public PhoneDto create(PhoneDto dto) {
         phoneValidator.validateAndThrow(dto);
@@ -51,4 +56,22 @@ public class PhoneService {
                 });
     }
 
+    public void initiateVerification(UUID phoneId, UUID userId) {
+                Phone phone = phoneRepository.findByUserIdAndPhoneId(userId, phoneId);
+                String codeVerify = SmsService.codeVerifyGenerator();
+                phone.setCodeVerify(codeVerify);
+                phoneRepository.save(phone);
+                SmsRequestDto smsRequestDto = new SmsRequestDto();
+                smsRequestDto.setPhoneNumber(phone.getPhoneNumber());
+                smsRequestDto.setMessage(codeVerify);
+                smsService.sendSms(smsRequestDto);
+    }
+
+    public void completeVerification(CompleteVerificationDto completeVerificationDto, UUID userId, UUID phoneId) {
+        Phone phone = phoneRepository.findByUserIdAndPhoneId(userId, phoneId);
+        if (completeVerificationDto.getCode().equals(phone.getCodeVerify())) {
+            phone.setIsVerified(true);
+            phoneRepository.save(phone);
+        }
+    }
 }

@@ -10,7 +10,9 @@ public class PhoneAssembler {
         return new PhoneDto()
                 .setPhoneId(phone.getPhoneId())
                 .setUserId(phone.getUserId())
-                .setPhoneNumber(phone.getPhoneNumber());
+                .setPhoneNumber(phone.getPhoneNumber())
+                .setIsVerified(phone.getIsVerified())
+                .setCodeVerifier(phone.getCodeVerify());
     }
 
     public Phone disassemble(PhoneDto dto) {

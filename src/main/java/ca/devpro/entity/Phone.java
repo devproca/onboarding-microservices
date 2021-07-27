@@ -31,6 +31,13 @@ public class Phone {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "is_verified")
+    private Boolean isVerified = false;
+
+    @Column(name = "code_verifier")
+    private String codeVerify;
+
+
     public static Phone newInstance(UUID userId) {
         Phone phone = new Phone();
         phone.phoneId = UUID.randomUUID();
