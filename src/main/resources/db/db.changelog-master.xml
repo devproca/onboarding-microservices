@@ -1,9 +1,14 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <!-- 1.0 Initialization -->
     <include file="db/db.changelog-1.0-initialize-tables.xml"/>
 
+    <!-- 1.1 Add Password Column -->
+    <include file="db/db.changelog-1.1-add-password.xml"/>
+
+    <!-- Demo data for development -->
+    <include file="db/demo-data/db.changelog-demo-data.xml" context="dev"/>
 
 </databaseChangeLog>
