@@ -19,7 +19,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Accessors(chain = true)
-
 public class User {
     //user_id, username, first_name, last_name, email_address, password, created_by, created_timestamp, updated_by, updated_timestamp, version)
     @Id
