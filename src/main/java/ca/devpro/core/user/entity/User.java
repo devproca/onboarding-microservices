@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -19,8 +20,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @Accessors(chain = true)
+@EntityListeners(AuditingEntityListener.class)
 public class User {
-    //user_id, username, first_name, last_name, email_address, password, created_by, created_timestamp, updated_by, updated_timestamp, version)
+
     @Id
     @Column(name = "user_id")
     @Type(type = "uuid-char")
@@ -59,9 +61,11 @@ public class User {
     @Column(name = "version")
     private long version;
 
-    public static User newInstance() {
+    public static User newInstance(String emailAddress, String password) {
         User user = new User();
         user.userId = UUID.randomUUID();
+        user.emailAddress = emailAddress;
+        user.password = password;
         return user;
     }
 }
