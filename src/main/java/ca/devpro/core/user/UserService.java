@@ -5,6 +5,7 @@ import ca.devpro.core.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.NotFoundException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,5 +24,9 @@ public class UserService {
 
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 }
