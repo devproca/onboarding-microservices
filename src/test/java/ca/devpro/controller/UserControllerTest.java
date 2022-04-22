@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
+import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -35,14 +36,14 @@ public class UserControllerTest {
     public void testDelete_whenValid_shouldReturnNoContent() {
         UserDto dto = getValidUser();
         UserDto createdDto = userClient.create(dto);
-        Integer response = userClient.delete(createdDto.getUserId()).getStatus();
-        assertEquals(204, response);
+        Response response = userClient.delete(createdDto.getUserId());
+        assertEquals(204, response.getStatus());
     }
 
     @Test
     public void testDelete_whenInvalid_shouldReturnNotFound() {
-        Integer response = userClient.delete(UUID.randomUUID()).getStatus();
-        assertEquals(404, response);
+        Response response = userClient.delete(UUID.randomUUID());
+        assertEquals(404, response.getStatus());
     }
 
     private UserDto getValidUser() {
