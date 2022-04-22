@@ -6,6 +6,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 public class UserClient {
@@ -29,6 +30,12 @@ public class UserClient {
         return usersTarget(userId)
                 .request()
                 .get(UserDto.class);
+    }
+
+    public Response delete(UUID userId) {
+        return usersTarget(userId)
+                .request()
+                .delete();
     }
 
     private WebTarget usersTarget(UUID userId) {
