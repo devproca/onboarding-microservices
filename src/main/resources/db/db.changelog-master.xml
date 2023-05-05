@@ -7,7 +7,7 @@
             <column name="USER_ID" type="uuid">
                 <constraints primaryKey="true"></constraints>
             </column>
-            <column name="username" type="varchar(30)"></column>
+            <column name="USERNAME" type="varchar(30)"></column>
             <column name="FIRST_NAME" type="varchar(50)"></column>
             <column name="LAST_NAME" type="varchar(50)"></column>
         </createTable>

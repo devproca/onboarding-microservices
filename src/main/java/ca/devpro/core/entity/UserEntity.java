@@ -38,7 +38,7 @@ public class UserEntity {
 	@Setter
 	private String lastName;
 
-	public UserEntity newInstance(){
+	public static UserEntity newInstance(){
 		return new UserEntity()
 				.setUserId(UUID.randomUUID());
 	}

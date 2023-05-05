@@ -10,12 +10,17 @@ public class UserAssembler {
 	public UserDto assemble(UserEntity userEntity){
 		return new UserDto()
 				.setUserId(userEntity.getUserId())
-				.setUsername(userEntity.getUsername());
+				.setUsername(userEntity.getUsername())
+				.setFirstName(userEntity.getFirstName())
+				.setLastName(userEntity.getLastName())
+				.setFullName(String.format("%s %s", userEntity.getFirstName(), userEntity.getLastName()));
 	}
 
 
 	public UserEntity disassembleInto(UserDto userDto, UserEntity entity){
 		return entity
+				.setFirstName(userDto.getFirstName())
+				.setLastName(userDto.getLastName())
 				.setUsername(userDto.getUsername());
 	}
 }
