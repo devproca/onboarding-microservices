@@ -2,5 +2,15 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <changeSet id="create-table" author="pasiond">
+        <createTable tableName="USER">
+            <column name="USER_ID" type="uuid">
+                <constraints primaryKey="true"></constraints>
+            </column>
+            <column name="username" type="varchar(30)"></column>
+            <column name="FIRST_NAME" type="varchar(50)"></column>
+            <column name="LAST_NAME" type="varchar(50)"></column>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>
